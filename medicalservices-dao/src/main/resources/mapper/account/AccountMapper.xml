@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.account.dao.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.api.account.domain.Account">
+    <id column="YAD901" jdbcType="VARCHAR" property="yad901" />
+    <id column="YAD961" jdbcType="VARCHAR" property="yad961" />
+    <result column="DES" jdbcType="VARCHAR" property="des" />
+    <result column="CAREATE_TIME" jdbcType="TIMESTAMP" property="careateTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    YAD901, YAD961, DES, CAREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.api.account.domain.AccountKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yw_account
+    where YAD901 = #{yad901,jdbcType=VARCHAR}
+      and YAD961 = #{yad961,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.api.account.domain.AccountKey">
+    delete from yw_account
+    where YAD901 = #{yad901,jdbcType=VARCHAR}
+      and YAD961 = #{yad961,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.api.account.domain.Account">
+    insert into yw_account (YAD901, YAD961, DES, 
+      CAREATE_TIME, UPDATE_TIME)
+    values (#{yad901,jdbcType=VARCHAR}, #{yad961,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
+      NOW(), NOW())
+  </insert>
+  <insert id="insertSelective" parameterType="com.api.account.domain.Account">
+    insert into yw_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="yad901 != null">
+        YAD901,
+      </if>
+      <if test="yad961 != null">
+        YAD961,
+      </if>
+      <if test="des != null">
+        DES,
+      </if>
+      <if test="careateTime != null">
+        CAREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="yad901 != null">
+        #{yad901,jdbcType=VARCHAR},
+      </if>
+      <if test="yad961 != null">
+        #{yad961,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="careateTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.api.account.domain.Account">
+    update yw_account
+    <set>
+      <if test="des != null">
+        DES = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="careateTime != null">
+        CAREATE_TIME = #{careateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where YAD901 = #{yad901,jdbcType=VARCHAR}
+      and YAD961 = #{yad961,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.api.account.domain.Account">
+    update yw_account
+    set DES = #{des,jdbcType=VARCHAR},
+      CAREATE_TIME = #{careateTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where YAD901 = #{yad901,jdbcType=VARCHAR}
+      and YAD961 = #{yad961,jdbcType=VARCHAR}
+  </update>
+</mapper>
