@@ -3,12 +3,10 @@ package com.api.card.service.impl;
 import com.api.account.dao.AccountMapper;
 import com.api.account.domain.Account;
 import com.api.account.domain.AccountKey;
-import com.api.adapter.HISTransAdapterContainer;
 import com.api.card.dao.CardMapper;
 import com.api.card.domain.Card;
 import com.api.card.domain.CardKey;
 import com.api.card.service.CardService;
-import com.api.constant.IConst;
 import com.api.dto.card.BindCardDto;
 import com.api.dto.card.BookingDto;
 import com.api.dto.card.QueryCardDto;
@@ -19,16 +17,14 @@ import com.api.result.messageenum.CardErrorInfoEnum;
 import com.api.result.messageenum.GlobalErrorInfoEnum;
 import com.api.setting.HisSetting;
 import com.api.util.RedissLockUtil;
-import com.api.util.ReflectMapUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -46,7 +42,6 @@ public class CardServiceImpl implements CardService {
     @Autowired
     HisSetting setting;
     @Override
-    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody saveBooking(BookingDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockCardPre()+dto.getYad901()+dto.getYad961();
         try{
@@ -87,7 +82,6 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody saveBindCard(BindCardDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockCardPre()+dto.getYad901()+dto.getYad961();
         try{
@@ -127,7 +121,6 @@ public class CardServiceImpl implements CardService {
         }
     }
     @Override
-    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody updateUnBindCard(UnBindCardDto dto) throws GlobalErrorInfoException {
         CardKey cardDelete = new CardKey();
         cardDelete.setAac002(dto.getAac002());
@@ -180,7 +173,7 @@ public class CardServiceImpl implements CardService {
             //插入该账号信息
             Account accuntInsert = new Account();
             accuntInsert.setYad961(yad961);
-            accuntInsert.setYad901(yad961);
+            accuntInsert.setYad901(yad901);
             accountMapper.insert(accuntInsert);
         }
         return new ResultBody();

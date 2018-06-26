@@ -1,8 +1,9 @@
 package com.api.card.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Card extends CardKey {
+public class Card extends CardKey implements Serializable {
     private String patid;
 
     private String aac003;

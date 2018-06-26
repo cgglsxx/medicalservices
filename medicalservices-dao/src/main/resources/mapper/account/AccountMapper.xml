@@ -5,11 +5,11 @@
     <id column="YAD901" jdbcType="VARCHAR" property="yad901" />
     <id column="YAD961" jdbcType="VARCHAR" property="yad961" />
     <result column="DES" jdbcType="VARCHAR" property="des" />
-    <result column="CAREATE_TIME" jdbcType="TIMESTAMP" property="careateTime" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    YAD901, YAD961, DES, CAREATE_TIME, UPDATE_TIME
+    YAD901, YAD961, DES, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.api.account.domain.AccountKey" resultMap="BaseResultMap">
     select 
@@ -25,7 +25,7 @@
   </delete>
   <insert id="insert" parameterType="com.api.account.domain.Account">
     insert into yw_account (YAD901, YAD961, DES, 
-      CAREATE_TIME, UPDATE_TIME)
+      CREATE_TIME, UPDATE_TIME)
     values (#{yad901,jdbcType=VARCHAR}, #{yad961,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
       NOW(), NOW())
   </insert>
@@ -41,8 +41,8 @@
       <if test="des != null">
         DES,
       </if>
-      <if test="careateTime != null">
-        CAREATE_TIME,
+      <if test="createTime != null">
+        CREATE_TIME,
       </if>
       <if test="updateTime != null">
         UPDATE_TIME,
@@ -58,7 +58,7 @@
       <if test="des != null">
         #{des,jdbcType=VARCHAR},
       </if>
-      <if test="careateTime != null">
+      <if test="createTime != null">
         now(),
       </if>
       <if test="updateTime != null">
@@ -72,8 +72,8 @@
       <if test="des != null">
         DES = #{des,jdbcType=VARCHAR},
       </if>
-      <if test="careateTime != null">
-        CAREATE_TIME = #{careateTime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
@@ -85,7 +85,7 @@
   <update id="updateByPrimaryKey" parameterType="com.api.account.domain.Account">
     update yw_account
     set DES = #{des,jdbcType=VARCHAR},
-      CAREATE_TIME = #{careateTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where YAD901 = #{yad901,jdbcType=VARCHAR}
       and YAD961 = #{yad961,jdbcType=VARCHAR}

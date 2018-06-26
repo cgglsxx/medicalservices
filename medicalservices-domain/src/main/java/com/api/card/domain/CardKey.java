@@ -1,6 +1,8 @@
 package com.api.card.domain;
 
-public class CardKey {
+import java.io.Serializable;
+
+public class CardKey implements Serializable {
     private String yad901;
 
     private String yad961;

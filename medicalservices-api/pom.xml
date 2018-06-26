@@ -13,28 +13,24 @@
     <dependencies>
         <dependency>
             <groupId>com.api</groupId>
-            <artifactId>medicalservices-domain</artifactId>
+            <artifactId>medicalservices-rpc</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.api</groupId>
-            <artifactId>medicalservices-dao</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
-            <groupId>com.api</groupId>
-            <artifactId>medicalservices-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.4.0</version>
         </dependency>
+        <!-- Spring Boot Dubbo 依赖 -->
         <dependency>
-            <groupId>com.api</groupId>
-            <artifactId>medicalservices-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.api</groupId>
-            <artifactId>medicalservices-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>io.dubbo.springboot</groupId>
+            <artifactId>spring-boot-starter-dubbo</artifactId>
+            <version>${dubbo-spring-boot}</version>
         </dependency>
     </dependencies>
 

@@ -2,6 +2,7 @@ package com.api.card.controller;
 
 
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.api.card.service.CardService;
 import com.api.dto.card.BindCardDto;
 import com.api.dto.card.BookingDto;
@@ -15,7 +16,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +30,7 @@ import javax.validation.Valid;
 public class CardManagerController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
+    @Reference
     CardService cardService;
     @ApiOperation(value = "无卡注册", notes = "", response = ResultBody.class)
     @RequestMapping(value = "/api/card/saveBooking", method = RequestMethod.GET)

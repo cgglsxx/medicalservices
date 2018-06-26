@@ -1,6 +1,8 @@
 package com.api.account.domain;
 
-public class AccountKey {
+import java.io.Serializable;
+
+public class AccountKey implements Serializable {
     private String yad901;
 
     private String yad961;

@@ -2,11 +2,13 @@ package com.api.result;
 
 import com.api.result.messageenum.GlobalErrorInfoEnum;
 
+import java.io.Serializable;
+
 /**
  * 返回体
  *
  */
-public class ResultBody {
+public class ResultBody implements Serializable{
     /**
      * 响应代码
      */

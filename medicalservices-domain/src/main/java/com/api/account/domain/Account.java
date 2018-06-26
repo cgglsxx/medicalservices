@@ -1,11 +1,12 @@
 package com.api.account.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Account extends AccountKey {
+public class Account extends AccountKey implements Serializable{
     private String des;
 
-    private Date careateTime;
+    private Date createTime;
 
     private Date updateTime;
 
@@ -17,12 +18,12 @@ public class Account extends AccountKey {
         this.des = des == null ? null : des.trim();
     }
 
-    public Date getCareateTime() {
-        return careateTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCareateTime(Date careateTime) {
-        this.careateTime = careateTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {

@@ -1,7 +1,7 @@
 package com.api.common.dao;
 
-import com.api.common.domain.City;
-import org.apache.ibatis.annotations.Param;
+//import com.api.common.domain.City;
+//import org.apache.ibatis.annotations.Param;
 
 /**
  * 城市 DAO 接口类
@@ -15,5 +15,5 @@ public interface CityDao {
      *
      * @param cityName 城市名
      */
-    City findByName(@Param("cityName") String cityName);
+//    City findByName(@Param("cityName") String cityName);
 }

@@ -2,12 +2,14 @@ package com.api.common.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.io.Serializable;
+
 /**
  * 城市实体类
  *
  * Created by bysocket on 07/02/2017.
  */
-public class City {
+public class City implements Serializable {
 
     /**
      * 城市编号

@@ -1,6 +1,7 @@
 package com.api.registered.controller;
 
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.api.dto.register.*;
 import com.api.mq.config.RabbitConfig;
 import com.api.mq.model.Msg;
@@ -30,7 +31,7 @@ import javax.validation.Valid;
 public class RegisteredController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
+    @Reference
     RegisteredService registeredService;
     @Autowired
     private MsgSender msgSender;
