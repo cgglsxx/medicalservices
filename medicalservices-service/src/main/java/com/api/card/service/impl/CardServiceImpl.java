@@ -20,7 +20,7 @@ import com.api.util.RedissLockUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.alibaba.dubbo.config.annotation.Service;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 就诊卡服务实现
  */
-@Service
+@Service("cardService")
 public class CardServiceImpl implements CardService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -42,6 +42,7 @@ public class CardServiceImpl implements CardService {
     @Autowired
     HisSetting setting;
     @Override
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody saveBooking(BookingDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockCardPre()+dto.getYad901()+dto.getYad961();
         try{
@@ -82,6 +83,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody saveBindCard(BindCardDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockCardPre()+dto.getYad901()+dto.getYad961();
         try{
@@ -121,6 +123,7 @@ public class CardServiceImpl implements CardService {
         }
     }
     @Override
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody updateUnBindCard(UnBindCardDto dto) throws GlobalErrorInfoException {
         CardKey cardDelete = new CardKey();
         cardDelete.setAac002(dto.getAac002());
