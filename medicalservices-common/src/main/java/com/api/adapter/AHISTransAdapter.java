@@ -10,12 +10,12 @@ import java.util.Map;
  */
 public abstract class AHISTransAdapter {
 
-	public ResultBody sendMsg(Map param,String methodName) throws GlobalErrorInfoException {
+	public ResultBody sendMsg(Map param,String url) throws GlobalErrorInfoException {
 
 		//处理传入的参数
 		String transportMsg = handleData(param);
 		//与医院交互获取返回字符串
-		String resultMsg = handleConnection(transportMsg,methodName);
+		String resultMsg = handleConnection(transportMsg,url);
 		//对医院返回的字符串进行封装
 		ResultBody backData = handleResult(resultMsg);
 		return backData;

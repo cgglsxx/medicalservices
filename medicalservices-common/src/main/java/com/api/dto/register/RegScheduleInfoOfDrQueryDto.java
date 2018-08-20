@@ -6,9 +6,9 @@ import com.api.selfannotation.ToMapAnno;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * 查询当班科室号源信息参数dto
+ * 查询当班医生号源信息参数dto
  */
-public class RegScheduleInfoQueryDto extends ParentDto {
+public class RegScheduleInfoOfDrQueryDto extends ParentDto {
 
     //预约或挂号
     @NotEmpty(message = "isReg不能为空")
@@ -18,6 +18,10 @@ public class RegScheduleInfoQueryDto extends ParentDto {
     @NotEmpty(message = "科室代码不能为空")
     @ToMapAnno(name = "deptId")
     private String deptId;
+    //医生代码
+    @NotEmpty(message = "医生代码不能为空")
+    @ToMapAnno(name = "drId")
+    private String drId;
     //开始日期
     @ToMapAnno(name = "startingDate")
     private String startingDate;
@@ -39,6 +43,14 @@ public class RegScheduleInfoQueryDto extends ParentDto {
 
     public void setDeptId(String deptId) {
         this.deptId = deptId;
+    }
+
+    public String getDrId() {
+        return drId;
+    }
+
+    public void setDrId(String drId) {
+        this.drId = drId;
     }
 
     public String getStartingDate() {

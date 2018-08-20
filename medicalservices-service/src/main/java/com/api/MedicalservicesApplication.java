@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 // mapper 接口类扫描包配置
 @MapperScan("com.api.*.dao")
 // 配置文件加载
-@EnableConfigurationProperties({HisSetting.class})
+@EnableConfigurationProperties()
 // 事务注解配置开启
 @EnableTransactionManagement
 //加载手动引入的dubbo配置文件 解决dubbo无法发布 带有事务注解的服务类

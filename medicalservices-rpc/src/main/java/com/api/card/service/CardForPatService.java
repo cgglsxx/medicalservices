@@ -12,7 +12,7 @@ import com.api.result.ResultBody;
 /**
  * 就诊卡建档模块模块service
  */
-public interface CardService {
+public interface CardForPatService {
 
     /**
      * 无卡注册

@@ -35,38 +35,71 @@ public class RegisteredController {
     RegisteredService registeredService;
     @Autowired
     private MsgSender msgSender;
-    @ApiOperation(value = "获取科室列表", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/getKsDeptInfo", method = RequestMethod.GET)
-    public ResultBody getKsDeptInfo(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DepartmentQueryDto dto,
+    @ApiOperation(value = "获取当班科室列表", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/querySectionInformation", method = RequestMethod.GET)
+    public ResultBody querySectionInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DepartmentQueryDto dto,
                             BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
-        return registeredService.getKsDeptInfo(ReflectMapUtil.beanToMap(dto));
+        return registeredService.querySectionInformation(ReflectMapUtil.beanToMap(dto));
     }
-    @ApiOperation(value = "获取医生列表", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/getKsRegDoctorInfo", method = RequestMethod.GET)
-    public ResultBody getKsRegDoctorInfo(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DoctorsQueryDto dto,
+    @ApiOperation(value = "获取当班医生列表", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/queryDrInformation", method = RequestMethod.GET)
+    public ResultBody queryDrInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DoctorsQueryDto dto,
                                   BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
-        return registeredService.getKsRegDoctorInfo(ReflectMapUtil.beanToMap(dto));
+        return registeredService.queryDrInformation(ReflectMapUtil.beanToMap(dto));
     }
-    @ApiOperation(value = "获取号源信息", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/getRegScheduleInfo", method = RequestMethod.GET)
-    public ResultBody getRegScheduleInfo(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegScheduleInfoQueryDto dto,
+    @ApiOperation(value = "获取当班科室号源信息", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/querySectionSourceInformation", method = RequestMethod.GET)
+    public ResultBody querySectionSourceInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegScheduleInfoQueryDto dto,
                                   BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
-        return registeredService.getRegScheduleInfo(ReflectMapUtil.beanToMap(dto));
+        return registeredService.querySectionSourceInformation(ReflectMapUtil.beanToMap(dto));
+    }
+    @ApiOperation(value = "获取当班医生号源信息", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/queryDrSourceInformation", method = RequestMethod.GET)
+    public ResultBody queryDrSourceInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegScheduleInfoOfDrQueryDto dto,
+                                               BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        //调用服务
+        return registeredService.queryDrSourceInformation(ReflectMapUtil.beanToMap(dto));
+    }
+    @ApiOperation(value = "当班科室和医生所在科室信息查询", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/querySectionDrInformation", method = RequestMethod.GET)
+    public ResultBody querySectionDrInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DepartmentForDrAndDeptQueryDto dto,
+                                               BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        //调用服务
+        return registeredService.querySectionDrInformation(ReflectMapUtil.beanToMap(dto));
+    }
+    @ApiOperation(value = "根据排班类别获取当班科室当班医生", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/queryObtainDrSection", method = RequestMethod.GET)
+    public ResultBody queryObtainDrSection(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid ObtainDrSectionQueryDto dto,
+                                               BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        //调用服务
+        return registeredService.queryObtainDrSection(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "生成挂号订单", notes = "", response = ResultBody.class)
     @RequestMapping(value = "/api/registered/saveLockReg", method = RequestMethod.GET)

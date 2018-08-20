@@ -2,41 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.api.account.dao.AccountMapper">
   <resultMap id="BaseResultMap" type="com.api.account.domain.Account">
-    <id column="YAD901" jdbcType="VARCHAR" property="yad901" />
-    <id column="YAD961" jdbcType="VARCHAR" property="yad961" />
+    <id column="OUT_PLATFORM_ID" jdbcType="VARCHAR" property="out_platform_id" />
+    <id column="CHANNEL" jdbcType="VARCHAR" property="channel" />
     <result column="DES" jdbcType="VARCHAR" property="des" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    YAD901, YAD961, DES, CREATE_TIME, UPDATE_TIME
+    OUT_PLATFORM_ID, CHANNEL, DES, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.api.account.domain.AccountKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from yw_account
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.api.account.domain.AccountKey">
     delete from yw_account
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.api.account.domain.Account">
-    insert into yw_account (YAD901, YAD961, DES, 
+    insert into yw_account (OUT_PLATFORM_ID, CHANNEL, DES,
       CREATE_TIME, UPDATE_TIME)
-    values (#{yad901,jdbcType=VARCHAR}, #{yad961,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, 
+    values (#{out_platform_id,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR},
       NOW(), NOW())
   </insert>
   <insert id="insertSelective" parameterType="com.api.account.domain.Account">
     insert into yw_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="yad901 != null">
-        YAD901,
+      <if test="out_platform_id != null">
+        OUT_PLATFORM_ID,
       </if>
-      <if test="yad961 != null">
-        YAD961,
+      <if test="channel != null">
+        CHANNEL,
       </if>
       <if test="des != null">
         DES,
@@ -49,11 +49,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="yad901 != null">
-        #{yad901,jdbcType=VARCHAR},
+      <if test="out_platform_id != null">
+        #{out_platform_id,jdbcType=VARCHAR},
       </if>
-      <if test="yad961 != null">
-        #{yad961,jdbcType=VARCHAR},
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
       </if>
       <if test="des != null">
         #{des,jdbcType=VARCHAR},
@@ -79,15 +79,15 @@
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.api.account.domain.Account">
     update yw_account
     set DES = #{des,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -5,27 +5,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * Created by cjh on 2018/5/31.
  */
-@ConfigurationProperties(prefix = "his",locations = "classpath:his.properties")
+@ConfigurationProperties(prefix = "his")
 public class HisSetting {
-    private String wsdl;
-    private String namespace;
+    private String url;
     private String key;
     private String redisLockCardPre;
 
-    public String getWsdl() {
-        return wsdl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setWsdl(String wsdl) {
-        this.wsdl = wsdl;
-    }
-
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getKey() {

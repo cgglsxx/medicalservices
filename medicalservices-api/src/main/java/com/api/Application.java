@@ -9,13 +9,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 /**
  * Spring Boot 应用启动类
- *
- * Created by bysocket on 16/4/26.
  */
 // Spring Boot 应用的标识
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 // 配置文件加载
-@EnableConfigurationProperties({HisSetting.class})
+@EnableConfigurationProperties()
 public class Application {
 
     public static void main(String[] args) {

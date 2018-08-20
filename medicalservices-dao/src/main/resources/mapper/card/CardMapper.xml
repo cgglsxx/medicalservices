@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.api.card.dao.CardMapper">
   <resultMap id="BaseResultMap" type="com.api.card.domain.Card">
-    <id column="YAD901" jdbcType="VARCHAR" property="yad901" />
-    <id column="YAD961" jdbcType="VARCHAR" property="yad961" />
-    <id column="AKB020" jdbcType="VARCHAR" property="akb020" />
-    <id column="AAC002" jdbcType="VARCHAR" property="aac002" />
+    <id column="OUT_PLATFORM_ID" jdbcType="VARCHAR" property="out_platform_id" />
+    <id column="CHANNEL" jdbcType="VARCHAR" property="channel" />
+    <id column="AGENCY_NUM" jdbcType="VARCHAR" property="agency_num" />
+    <id column="IDCARD_NO" jdbcType="VARCHAR" property="idcard_no" />
     <result column="PATID" jdbcType="VARCHAR" property="patid" />
-    <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
-    <result column="YAE098" jdbcType="VARCHAR" property="yae098" />
+    <result column="PAT_NAME" jdbcType="VARCHAR" property="pat_name" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
     <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
     <result column="CARDNO" jdbcType="VARCHAR" property="cardno" />
     <result column="STATUS" jdbcType="VARCHAR" property="status" />
@@ -18,78 +18,78 @@
     <result column="LAST_UPDATETIME" jdbcType="TIMESTAMP" property="lastUpdatetime" />
   </resultMap>
   <sql id="Base_Column_List">
-    YAD901, YAD961, AKB020, AAC002, PATID, AAC003, YAE098, ADDRESS, CARDNO, STATUS, TYPE, 
+    OUT_PLATFORM_ID, CHANNEL, AGENCY_NUM, IDCARD_NO, PATID, PAT_NAME, MOBILE, ADDRESS, CARDNO, STATUS, TYPE,
     RELATIONSHIP, BIND_TIME, LAST_UPDATETIME
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.api.card.domain.CardKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from yw_card_manager
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
-      and AKB020 = #{akb020,jdbcType=VARCHAR}
-      and AAC002 = #{aac002,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
+      and AGENCY_NUM = #{agency_num,jdbcType=VARCHAR}
+      and IDCARD_NO = #{idcard_no,jdbcType=VARCHAR}
   </select>
   <select id="selectByAccount" parameterType="com.api.card.domain.CardKey"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from yw_card_manager
     where 1=1
-    <if test="yad901 != null">
-      and YAD901 = #{yad901,jdbcType=VARCHAR}
+    <if test="out_platform_id != null">
+      and OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
     </if>
-    <if test="aac002 != null">
-      and AAC002 = #{aac002,jdbcType=VARCHAR}
+    <if test="idcard_no != null">
+      and IDCARD_NO = #{idcard_no,jdbcType=VARCHAR}
     </if>
-    <if test="yad961 != null">
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
+    <if test="channel != null">
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
     </if>
-    <if test="akb020 != null">
-      and AKB020 = #{akb020,jdbcType=VARCHAR}
+    <if test="agency_num != null">
+      and AGENCY_NUM = #{agency_num,jdbcType=VARCHAR}
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.api.card.domain.CardKey">
     delete from yw_card_manager
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
-      and AKB020 = #{akb020,jdbcType=VARCHAR}
-      and AAC002 = #{aac002,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
+      and AGENCY_NUM = #{agency_num,jdbcType=VARCHAR}
+      and IDCARD_NO = #{idcard_no,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.api.card.domain.Card">
-    insert into yw_card_manager (YAD901, YAD961, AKB020, 
-      AAC002, PATID, AAC003, 
-      YAE098, ADDRESS, CARDNO, 
+    insert into yw_card_manager (OUT_PLATFORM_ID, CHANNEL, AGENCY_NUM,
+      IDCARD_NO, PATID, PAT_NAME,
+      MOBILE, ADDRESS, CARDNO,
       STATUS, TYPE, RELATIONSHIP, 
       BIND_TIME, LAST_UPDATETIME)
-    values (#{yad901,jdbcType=VARCHAR}, #{yad961,jdbcType=VARCHAR}, #{akb020,jdbcType=VARCHAR}, 
-      #{aac002,jdbcType=VARCHAR}, #{patid,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, 
-      #{yae098,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, 
+    values (#{out_platform_id,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, #{agency_num,jdbcType=VARCHAR},
+      #{idcard_no,jdbcType=VARCHAR}, #{patid,jdbcType=VARCHAR}, #{pat_name,jdbcType=VARCHAR},
+      #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR},
       #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{relationship,jdbcType=VARCHAR}, 
       now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.api.card.domain.Card">
     insert into yw_card_manager
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="yad901 != null">
-        YAD901,
+      <if test="out_platform_id != null">
+        OUT_PLATFORM_ID,
       </if>
-      <if test="yad961 != null">
-        YAD961,
+      <if test="channel != null">
+        CHANNEL,
       </if>
-      <if test="akb020 != null">
-        AKB020,
+      <if test="agency_num != null">
+        AGENCY_NUM,
       </if>
-      <if test="aac002 != null">
-        AAC002,
+      <if test="idcard_no != null">
+        IDCARD_NO,
       </if>
       <if test="patid != null">
         PATID,
       </if>
-      <if test="aac003 != null">
-        AAC003,
+      <if test="pat_name != null">
+        PAT_NAME,
       </if>
-      <if test="yae098 != null">
-        YAE098,
+      <if test="mobile != null">
+        MOBILE,
       </if>
       <if test="address != null">
         ADDRESS,
@@ -114,26 +114,26 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="yad901 != null">
-        #{yad901,jdbcType=VARCHAR},
+      <if test="out_platform_id != null">
+        #{out_platform_id,jdbcType=VARCHAR},
       </if>
-      <if test="yad961 != null">
-        #{yad961,jdbcType=VARCHAR},
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
       </if>
-      <if test="akb020 != null">
-        #{akb020,jdbcType=VARCHAR},
+      <if test="agency_num != null">
+        #{agency_num,jdbcType=VARCHAR},
       </if>
-      <if test="aac002 != null">
-        #{aac002,jdbcType=VARCHAR},
+      <if test="idcard_no != null">
+        #{idcard_no,jdbcType=VARCHAR},
       </if>
       <if test="patid != null">
         #{patid,jdbcType=VARCHAR},
       </if>
-      <if test="aac003 != null">
-        #{aac003,jdbcType=VARCHAR},
+      <if test="pat_name != null">
+        #{pat_name,jdbcType=VARCHAR},
       </if>
-      <if test="yae098 != null">
-        #{yae098,jdbcType=VARCHAR},
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
@@ -164,11 +164,11 @@
       <if test="patid != null">
         PATID = #{patid,jdbcType=VARCHAR},
       </if>
-      <if test="aac003 != null">
-        AAC003 = #{aac003,jdbcType=VARCHAR},
+      <if test="pat_name != null">
+        PAT_NAME = #{pat_name,jdbcType=VARCHAR},
       </if>
-      <if test="yae098 != null">
-        YAE098 = #{yae098,jdbcType=VARCHAR},
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="address != null">
         ADDRESS = #{address,jdbcType=VARCHAR},
@@ -192,16 +192,16 @@
         LAST_UPDATETIME = #{lastUpdatetime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
-      and AKB020 = #{akb020,jdbcType=VARCHAR}
-      and AAC002 = #{aac002,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
+      and AGENCY_NUM = #{agency_num,jdbcType=VARCHAR}
+      and IDCARD_NO = #{idcard_no,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.api.card.domain.Card">
     update yw_card_manager
     set PATID = #{patid,jdbcType=VARCHAR},
-      AAC003 = #{aac003,jdbcType=VARCHAR},
-      YAE098 = #{yae098,jdbcType=VARCHAR},
+      PAT_NAME = #{pat_name,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
       ADDRESS = #{address,jdbcType=VARCHAR},
       CARDNO = #{cardno,jdbcType=VARCHAR},
       STATUS = #{status,jdbcType=VARCHAR},
@@ -209,9 +209,9 @@
       RELATIONSHIP = #{relationship,jdbcType=VARCHAR},
       BIND_TIME = #{bindTime,jdbcType=TIMESTAMP},
       LAST_UPDATETIME = #{lastUpdatetime,jdbcType=TIMESTAMP}
-    where YAD901 = #{yad901,jdbcType=VARCHAR}
-      and YAD961 = #{yad961,jdbcType=VARCHAR}
-      and AKB020 = #{akb020,jdbcType=VARCHAR}
-      and AAC002 = #{aac002,jdbcType=VARCHAR}
+    where OUT_PLATFORM_ID = #{out_platform_id,jdbcType=VARCHAR}
+      and CHANNEL = #{channel,jdbcType=VARCHAR}
+      and AGENCY_NUM = #{agency_num,jdbcType=VARCHAR}
+      and IDCARD_NO = #{idcard_no,jdbcType=VARCHAR}
   </update>
 </mapper>

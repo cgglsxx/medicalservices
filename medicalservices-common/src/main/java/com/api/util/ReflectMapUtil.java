@@ -90,6 +90,7 @@ public class ReflectMapUtil {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> data_map = new HashMap<String, Object>();
         Class clazz = obj.getClass();
         Class clazz_sup = obj.getClass().getSuperclass();
         try {
@@ -97,15 +98,15 @@ public class ReflectMapUtil {
             Field[] declaredFields_sup = clazz_sup.getDeclaredFields();
             for (Field field : declaredFields) {
                 field.setAccessible(true);
-                map.put(field.getName(), field.get(obj));
+                data_map.put(field.getName(), field.get(obj));
                 if (field.isAnnotationPresent(ToMapAnno.class)) {
                     ToMapAnno anno = field.getAnnotation(ToMapAnno.class);
                     String name = anno.name();
-                    if (name != null && "".equals(name)) {
+                    if (name != null && !"".equals(name)) {
                         PropertyDescriptor pd = new PropertyDescriptor(field.getName(), clazz);
                         Method method = pd.getReadMethod();
                         Object value = method.invoke(obj);
-                        map.put(name, value);
+                        data_map.put(name, value);
                     }
                 }
             }
@@ -115,7 +116,7 @@ public class ReflectMapUtil {
                 if (field_sup.isAnnotationPresent(ToMapAnno.class)) {
                     ToMapAnno anno = field_sup.getAnnotation(ToMapAnno.class);
                     String name = anno.name();
-                    if (name != null && "".equals(name)) {
+                    if (name != null && !"".equals(name)) {
                         PropertyDescriptor pd = new PropertyDescriptor(field_sup.getName(), clazz_sup);
                         Method method = pd.getReadMethod();
                         Object value = method.invoke(obj);
@@ -123,6 +124,7 @@ public class ReflectMapUtil {
                     }
                 }
             }
+            map.put("data",data_map);
             if(map.containsKey("serialVersionUID")){
                 map.remove("serialVersionUID");
             }

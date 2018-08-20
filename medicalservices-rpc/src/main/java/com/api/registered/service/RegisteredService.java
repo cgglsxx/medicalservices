@@ -12,23 +12,41 @@ import java.util.Map;
 public interface RegisteredService {
 
     /**
-     * 获取科室列表
+     * 获取当班科室列表
      * @param param
      * @return
      */
-    ResultBody getKsDeptInfo(Map param) throws GlobalErrorInfoException;
+    ResultBody querySectionInformation(Map param) throws GlobalErrorInfoException;
 
     /**
-     * 获取医生列表
+     * 获取当班医生列表
      * @param param
      * @return
      */
-    ResultBody getKsRegDoctorInfo(Map param) throws GlobalErrorInfoException;
+    ResultBody queryDrInformation(Map param) throws GlobalErrorInfoException;
 
     /**
-     * 号源信息查询
+     * 获取科室当班号源信息查询
      * @param param
      * @return
      */
-    ResultBody getRegScheduleInfo(Map param) throws GlobalErrorInfoException;
+    ResultBody querySectionSourceInformation(Map param) throws GlobalErrorInfoException;
+    /**
+     * 获取当班医生号源信息查询
+     * @param param
+     * @return
+     */
+    ResultBody queryDrSourceInformation(Map param) throws GlobalErrorInfoException;
+    /**
+     * 根据医院代码获取有排班的科室信息和有排班的医生所在科室
+     * @param param
+     * @return
+     */
+    ResultBody querySectionDrInformation(Map param) throws GlobalErrorInfoException;
+    /**
+     * 根据排班类别获取当班科室当班医生
+     * @param param
+     * @return
+     */
+    ResultBody queryObtainDrSection(Map param) throws GlobalErrorInfoException;
 }

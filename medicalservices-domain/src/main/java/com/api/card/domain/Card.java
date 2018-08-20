@@ -6,9 +6,9 @@ import java.util.Date;
 public class Card extends CardKey implements Serializable {
     private String patid;
 
-    private String aac003;
+    private String pat_name;
 
-    private String yae098;
+    private String mobile;
 
     private String address;
 
@@ -32,20 +32,20 @@ public class Card extends CardKey implements Serializable {
         this.patid = patid == null ? null : patid.trim();
     }
 
-    public String getAac003() {
-        return aac003;
+    public String getPat_name() {
+        return pat_name;
     }
 
-    public void setAac003(String aac003) {
-        this.aac003 = aac003 == null ? null : aac003.trim();
+    public void setPat_name(String pat_name) {
+        this.pat_name = pat_name == null ? null : pat_name.trim();
     }
 
-    public String getYae098() {
-        return yae098;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setYae098(String yae098) {
-        this.yae098 = yae098 == null ? null : yae098.trim();
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
     }
 
     public String getAddress() {

@@ -11,12 +11,12 @@
 
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
 
-    <dubbo:protocol name="dubbo" port="20881"/>
+    <dubbo:protocol name="dubbo" port="20882"/>
 
     <!--<dubbo:monitor protocol="registry"/>-->
 
     <!-- 就诊卡操作 -->
-    <dubbo:service interface="com.api.card.service.CardService" ref="cardService" timeout="10000"/>
+    <dubbo:service interface="com.api.card.service.CardForPatService" ref="cardForPatService" timeout="10000"/>
 
     <!-- 挂号 -->
     <dubbo:service interface="com.api.registered.service.RegisteredService" ref="registeredService" timeout="10000"/>

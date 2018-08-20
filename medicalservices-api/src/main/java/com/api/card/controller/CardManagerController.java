@@ -3,7 +3,7 @@ package com.api.card.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.card.service.CardService;
+import com.api.card.service.CardForPatService;
 import com.api.dto.card.BindCardDto;
 import com.api.dto.card.BookingDto;
 import com.api.dto.card.QueryCardDto;
@@ -31,7 +31,7 @@ public class CardManagerController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Reference
-    CardService cardService;
+    CardForPatService cardForPatService;
     @ApiOperation(value = "无卡注册", notes = "", response = ResultBody.class)
     @RequestMapping(value = "/api/card/saveBooking", method = RequestMethod.GET)
     public ResultBody saveBooking(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid BookingDto dto,
@@ -42,7 +42,7 @@ public class CardManagerController {
         }
         //todo 调用银联接口验证身份信息
         //验证成功调用无卡注册服务
-        return cardService.saveBooking(dto);
+        return cardForPatService.saveBooking(dto);
     }
     @ApiOperation(value = "绑卡", notes = "", response = ResultBody.class)
     @RequestMapping(value = "/api/card/saveBindCard", method = RequestMethod.GET)
@@ -53,7 +53,7 @@ public class CardManagerController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
-        return cardService.saveBindCard(dto);
+        return cardForPatService.saveBindCard(dto);
     }
     @ApiOperation(value = "解绑", notes = "", response = ResultBody.class)
     @RequestMapping(value = "/api/card/updateUnBindCard", method = RequestMethod.GET)
@@ -64,7 +64,7 @@ public class CardManagerController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
-        return cardService.updateUnBindCard(dto);
+        return cardForPatService.updateUnBindCard(dto);
     }
     @ApiOperation(value = "查询绑卡信息", notes = "", response = ResultBody.class)
     @RequestMapping(value = "/api/card/queryCardInfo", method = RequestMethod.GET)
@@ -75,6 +75,6 @@ public class CardManagerController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
-        return cardService.queryCardInfo(dto);
+        return cardForPatService.queryCardInfo(dto);
     }
 }

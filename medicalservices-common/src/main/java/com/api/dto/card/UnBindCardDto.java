@@ -10,13 +10,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UnBindCardDto extends ParentDto {
     //账号id
     @NotEmpty(message = "账号id不能为空")
-    private String yad901;
+    private String out_platform_id;
     //渠道
     @NotEmpty(message = "渠道不能为空")
-    private String yad961;
+    private String channel;
     //身份证号
     @NotEmpty(message = "身份证不能为空")
-    private String aac002;
+    private String idcard_no;
     //卡类型
     @NotEmpty(message = "卡类型不能为空")
     private String cardType;
@@ -24,28 +24,28 @@ public class UnBindCardDto extends ParentDto {
     @NotEmpty(message = "卡号不能为空")
     private String yac005;
 
-    public String getYad901() {
-        return yad901;
+    public String getOut_platform_id() {
+        return out_platform_id;
     }
 
-    public void setYad901(String yad901) {
-        this.yad901 = yad901;
+    public void setOut_platform_id(String out_platform_id) {
+        this.out_platform_id = out_platform_id;
     }
 
-    public String getYad961() {
-        return yad961;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setYad961(String yad961) {
-        this.yad961 = yad961;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
-    public String getAac002() {
-        return aac002;
+    public String getIdcard_no() {
+        return idcard_no;
     }
 
-    public void setAac002(String aac002) {
-        this.aac002 = aac002;
+    public void setIdcard_no(String idcard_no) {
+        this.idcard_no = idcard_no;
     }
 
     public String getCardType() {

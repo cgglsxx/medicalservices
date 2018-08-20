@@ -9,28 +9,25 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class QueryCardDto extends ParentDto {
     //账号id
-    @NotEmpty(message = "账号id不能为空")
-    private String yad901;
+    @NotEmpty(message = "第三方账号id不能为空")
+    private String out_platform_id;
     //渠道
     @NotEmpty(message = "渠道不能为空")
-    private String yad961;
+    private String channel;
 
-
-    public String getYad901() {
-        return yad901;
+    public String getOut_platform_id() {
+        return out_platform_id;
     }
 
-    public void setYad901(String yad901) {
-        this.yad901 = yad901;
+    public void setOut_platform_id(String out_platform_id) {
+        this.out_platform_id = out_platform_id;
     }
 
-    public String getYad961() {
-        return yad961;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setYad961(String yad961) {
-        this.yad961 = yad961;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
-
-
 }

@@ -3,23 +3,24 @@ package com.api.account.domain;
 import java.io.Serializable;
 
 public class AccountKey implements Serializable {
-    private String yad901;
+    private String out_platform_id;
 
-    private String yad961;
+    private String channel;
 
-    public String getYad901() {
-        return yad901;
+    public String getOut_platform_id() {
+        return out_platform_id;
     }
 
-    public void setYad901(String yad901) {
-        this.yad901 = yad901 == null ? null : yad901.trim();
+    public void setOut_platform_id(String out_platform_id) {
+        this.out_platform_id = out_platform_id == null ? null : out_platform_id.trim();;
     }
 
-    public String getYad961() {
-        return yad961;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setYad961(String yad961) {
-        this.yad961 = yad961 == null ? null : yad961.trim();
+    public void setChannel(String channel) {
+        this.channel = channel == null ? null : channel.trim();
     }
+
 }
