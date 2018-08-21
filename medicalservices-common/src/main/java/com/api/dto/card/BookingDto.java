@@ -3,6 +3,7 @@ package com.api.dto.card;
 
 import com.api.dto.parentDto.ParentDto;
 import com.api.selfannotation.ToMapAnno;
+import com.api.util.DateUtil;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -52,9 +53,8 @@ public class BookingDto extends ParentDto {
     @ToMapAnno(name = "ybdm")
     private String ybdm;
     //创建日期
-    @NotEmpty(message = "创建日期不能为空")
     @ToMapAnno(name = "CreateDate")
-    private String CreateDate;
+    private String createDate = DateUtil.formatDateToString(DateUtil.FORMAT_FULL_12);
     //与账号关系
     @NotEmpty(message = "关系不能为空")
     private String relationship;
@@ -155,12 +155,13 @@ public class BookingDto extends ParentDto {
         this.ybdm = ybdm;
     }
 
+
     public String getCreateDate() {
-        return CreateDate;
+        return createDate;
     }
 
     public void setCreateDate(String createDate) {
-        CreateDate = createDate;
+        this.createDate = createDate;
     }
 
     public String getRelationship() {

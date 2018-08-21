@@ -9,10 +9,7 @@ import com.api.card.domain.Card;
 import com.api.card.domain.CardKey;
 import com.api.card.service.CardForPatService;
 import com.api.constant.IConst;
-import com.api.dto.card.BindCardDto;
-import com.api.dto.card.BookingDto;
-import com.api.dto.card.QueryCardDto;
-import com.api.dto.card.UnBindCardDto;
+import com.api.dto.card.*;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 import com.api.result.messageenum.CardErrorInfoEnum;
@@ -67,8 +64,8 @@ public class CardForPatServiceImpl implements CardForPatService {
                 return resultBody;
             }
             //查询his中是否已经建立档案
-            dto.setServiceId("queryPatientInfo");//调用病人信息查询服务名设置
-            ResultBody ptresultBody = serviceInvoke(ReflectMapUtil.beanToMap(dto));
+            QueryBookingDto queryBookingDto = new QueryBookingDto(dto);
+            ResultBody ptresultBody = serviceInvoke(ReflectMapUtil.beanToMap(queryBookingDto));
             if(IConst.HIS_SUCCESS.equals(ptresultBody.getCode())){
                 //表示查询到病人信息
                 return new ResultBody(CardErrorInfoEnum.CARD_PATINFO_EXIST);
@@ -76,7 +73,8 @@ public class CardForPatServiceImpl implements CardForPatService {
             //调用his建档 获取用户的注册信息封装写入卡管理
             dto.setServiceId("createPatientInfo");//调用病人建档服务名设置
             ResultBody hisresult = serviceInvoke(ReflectMapUtil.beanToMap(dto));
-            Map hisMap = (Map) hisresult.getResult();
+            List hisList = (List) hisresult.getResult();
+            Map hisMap = (Map) hisList.get(0);
             Card cardInsert = new Card();
             cardInsert.setPat_name(dto.getPat_name());
             cardInsert.setAddress(dto.getAddress());
@@ -114,11 +112,11 @@ public class CardForPatServiceImpl implements CardForPatService {
             String idcard_no = dto.getIdcard_no();
             ResultBody resultBody = checkBindCondition(out_platform_id,channel,idcard_no,agency_num);
             if(!resultBody.getCode().equals(GlobalErrorInfoEnum.SUCCESS.getCode())){
-                return resultBody;
+                return new ResultBody((CardErrorInfoEnum.CARD_ALREADY_BIND));
             }
             //先调用病人信息查询获取patid
-            dto.setServiceId("queryPatientInfo");
-            ResultBody ptresult = serviceInvoke(ReflectMapUtil.beanToMap(dto));
+            QueryBookingDto queryBookingDto = new QueryBookingDto(dto);
+            ResultBody ptresult = serviceInvoke(ReflectMapUtil.beanToMap(queryBookingDto));
             if(!IConst.HIS_SUCCESS.equals(ptresult.getCode())){
                 //表示该病人还未建档
                 return new ResultBody(CardErrorInfoEnum.CARD_NO_PATINFO_EXIST);
@@ -203,7 +201,7 @@ public class CardForPatServiceImpl implements CardForPatService {
     @Override
     public ResultBody queryCardInfo(QueryCardDto dto) throws GlobalErrorInfoException {
         CardKey cardQuery = new CardKey();
-        cardQuery.setAgency_num("");
+        cardQuery.setAgency_num(dto.getOrgCode());
         cardQuery.setOut_platform_id(dto.getOut_platform_id());
         cardQuery.setChannel(dto.getChannel());
         List<Card> cards = cardMapper.selectByAccount(cardQuery);

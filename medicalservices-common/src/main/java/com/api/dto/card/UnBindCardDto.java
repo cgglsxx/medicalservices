@@ -1,28 +1,37 @@
 package com.api.dto.card;
 
 
-import com.api.dto.parentDto.ParentDto;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import java.io.Serializable;
 
 /**
  * 查询绑卡参数dto
  */
-public class UnBindCardDto extends ParentDto {
+public class UnBindCardDto implements Serializable {
     //账号id
     @NotEmpty(message = "账号id不能为空")
     private String out_platform_id;
     //渠道
     @NotEmpty(message = "渠道不能为空")
     private String channel;
+    @NotEmpty(message = "机构编号不能为空")
+    private String orgCode;
     //身份证号
     @NotEmpty(message = "身份证不能为空")
     private String idcard_no;
     //卡类型
     @NotEmpty(message = "卡类型不能为空")
     private String cardType;
-    //卡号
-    @NotEmpty(message = "卡号不能为空")
-    private String yac005;
+
+
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
 
     public String getOut_platform_id() {
         return out_platform_id;
@@ -56,11 +65,4 @@ public class UnBindCardDto extends ParentDto {
         this.cardType = cardType;
     }
 
-    public String getYac005() {
-        return yac005;
-    }
-
-    public void setYac005(String yac005) {
-        this.yac005 = yac005;
-    }
 }

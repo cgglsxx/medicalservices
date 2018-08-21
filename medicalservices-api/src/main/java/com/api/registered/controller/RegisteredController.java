@@ -44,6 +44,7 @@ public class RegisteredController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
+        dto.setServiceId("querySectionInformation");
         return registeredService.querySectionInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "获取当班医生列表", notes = "", response = ResultBody.class)
@@ -55,6 +56,7 @@ public class RegisteredController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
+        dto.setServiceId("queryDrInformation");
         return registeredService.queryDrInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "获取当班科室号源信息", notes = "", response = ResultBody.class)
@@ -66,6 +68,7 @@ public class RegisteredController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
+        dto.setServiceId("querySectionSourceInformation");
         return registeredService.querySectionSourceInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "获取当班医生号源信息", notes = "", response = ResultBody.class)
@@ -77,6 +80,7 @@ public class RegisteredController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
+        dto.setServiceId("queryDrSourceInformation");
         return registeredService.queryDrSourceInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "当班科室和医生所在科室信息查询", notes = "", response = ResultBody.class)
@@ -88,6 +92,7 @@ public class RegisteredController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
+        dto.setServiceId("querySectionDrInformation");
         return registeredService.querySectionDrInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "根据排班类别获取当班科室当班医生", notes = "", response = ResultBody.class)
@@ -99,6 +104,7 @@ public class RegisteredController {
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
         //调用服务
+        dto.setServiceId("ObtainDrSection");
         return registeredService.queryObtainDrSection(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "生成挂号订单", notes = "", response = ResultBody.class)

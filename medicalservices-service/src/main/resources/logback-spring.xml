@@ -34,7 +34,7 @@
             <!--</timeBasedFileNamingAndTriggeringPolicy>-->
         </rollingPolicy>
         <encoder>
-            <pattern>%d{yyyy-mm-dd HH:mm:ss.SSS} [%thread] %-5level %logger{16} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{16} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -49,7 +49,7 @@
             <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{yyyy-mm-dd HH:mm:ss.SSS} [%thread] %-5level %logger{16} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{16} - %msg%n</pattern>
         </encoder>
     </appender>
 

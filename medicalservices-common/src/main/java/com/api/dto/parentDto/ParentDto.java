@@ -11,30 +11,29 @@ import java.io.Serializable;
  */
 public class ParentDto implements Serializable{
     //服务ID
-    @NotEmpty(message = "serviceId不能为空")
     @ToMapAnno(name = "serviceId")
     private String serviceId;
     //机构编码
     @NotEmpty(message = "机构编码不能为空")
     @ToMapAnno(name = "orgCode")
-    private String orgCode;
+    private String orgCode = "429204962";
     //院区编码
     @ToMapAnno(name = "hosId")
-    private String hosId;
+    private String hosId ="B001";
     //院区名称
     @ToMapAnno(name = "hospital")
-    private String hospital;
+    private String hospital = "贵阳人民医院";
     //应用编码
     @NotEmpty(message = "应用编码不能为空")
     @ToMapAnno(name = "appCode")
-    private String appCode;
+    private String appCode = "99";
     //应用开发商代码
     @NotEmpty(message = "应用开发商代码不能为空")
     @ToMapAnno(name = "devCode")
-    private String devCode;
+    private String devCode = "YHYBCS";
     //调用者身份代码
     @ToMapAnno(name = "operId")
-    private String operId;
+    private String operId ="YH001";
 
     public String getServiceId() {
         return serviceId;

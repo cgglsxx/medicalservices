@@ -20,7 +20,20 @@ public class QueryBookingDto extends ParentDto {
     private String patientName;
     @ToMapAnno(name = "phone")
     private String phone;
-
+    public QueryBookingDto(BindCardDto dto){
+        this.idcard_no = dto.getIdcard_no();
+        this.guardianId = dto.getGuardianId();
+        this.patientName = dto.getPat_name();
+        this.phone = dto.getMobile();
+        super.setServiceId("queryPatientInfo");
+    }
+    public QueryBookingDto(BookingDto dto){
+        this.idcard_no = dto.getIdcard_no();
+        this.guardianId = dto.getGuardianId();
+        this.patientName = dto.getPat_name();
+        this.phone = dto.getMobile();
+        super.setServiceId("queryPatientInfo");
+    }
     public String getIdcard_no() {
         return idcard_no;
     }

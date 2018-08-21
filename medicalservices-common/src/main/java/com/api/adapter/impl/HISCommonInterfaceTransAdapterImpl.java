@@ -2,7 +2,6 @@ package com.api.adapter.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.api.adapter.AHISTransAdapter;
-import com.api.constant.IConst;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 import com.api.result.messageenum.GlobalErrorInfoEnum;
