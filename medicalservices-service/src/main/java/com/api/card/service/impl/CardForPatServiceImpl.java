@@ -82,7 +82,7 @@ public class CardForPatServiceImpl implements CardForPatService {
             cardInsert.setPatid(hisMap.get("patId").toString());
             cardInsert.setRelationship(dto.getRelationship());
             cardInsert.setStatus("1");
-            cardInsert.setType("1");
+            cardInsert.setType(hisMap.get("cardType").toString());
             cardInsert.setMobile(dto.getMobile());
             cardInsert.setIdcard_no(dto.getIdcard_no());
             cardInsert.setAgency_num(agency_num);

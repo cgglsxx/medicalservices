@@ -18,10 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -36,8 +33,8 @@ public class RegisteredController {
     @Autowired
     private MsgSender msgSender;
     @ApiOperation(value = "获取当班科室列表", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/querySectionInformation", method = RequestMethod.GET)
-    public ResultBody querySectionInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DepartmentQueryDto dto,
+    @RequestMapping(value = "/api/registered/querySectionInformation", method = RequestMethod.POST)
+    public ResultBody querySectionInformation(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid DepartmentQueryDto dto,
                             BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -48,8 +45,8 @@ public class RegisteredController {
         return registeredService.querySectionInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "获取当班医生列表", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/queryDrInformation", method = RequestMethod.GET)
-    public ResultBody queryDrInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DoctorsQueryDto dto,
+    @RequestMapping(value = "/api/registered/queryDrInformation", method = RequestMethod.POST)
+    public ResultBody queryDrInformation(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid DoctorsQueryDto dto,
                                   BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -60,8 +57,8 @@ public class RegisteredController {
         return registeredService.queryDrInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "获取当班科室号源信息", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/querySectionSourceInformation", method = RequestMethod.GET)
-    public ResultBody querySectionSourceInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegScheduleInfoQueryDto dto,
+    @RequestMapping(value = "/api/registered/querySectionSourceInformation", method = RequestMethod.POST)
+    public ResultBody querySectionSourceInformation(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegScheduleInfoQueryDto dto,
                                   BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -72,8 +69,8 @@ public class RegisteredController {
         return registeredService.querySectionSourceInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "获取当班医生号源信息", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/queryDrSourceInformation", method = RequestMethod.GET)
-    public ResultBody queryDrSourceInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegScheduleInfoOfDrQueryDto dto,
+    @RequestMapping(value = "/api/registered/queryDrSourceInformation", method = RequestMethod.POST)
+    public ResultBody queryDrSourceInformation(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegScheduleInfoOfDrQueryDto dto,
                                                BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -84,8 +81,8 @@ public class RegisteredController {
         return registeredService.queryDrSourceInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "当班科室和医生所在科室信息查询", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/querySectionDrInformation", method = RequestMethod.GET)
-    public ResultBody querySectionDrInformation(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid DepartmentForDrAndDeptQueryDto dto,
+    @RequestMapping(value = "/api/registered/querySectionDrInformation", method = RequestMethod.POST)
+    public ResultBody querySectionDrInformation(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid DepartmentForDrAndDeptQueryDto dto,
                                                BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -96,8 +93,8 @@ public class RegisteredController {
         return registeredService.querySectionDrInformation(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "根据排班类别获取当班科室当班医生", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/queryObtainDrSection", method = RequestMethod.GET)
-    public ResultBody queryObtainDrSection(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid ObtainDrSectionQueryDto dto,
+    @RequestMapping(value = "/api/registered/queryObtainDrSection", method = RequestMethod.POST)
+    public ResultBody queryObtainDrSection(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid ObtainDrSectionQueryDto dto,
                                                BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -108,8 +105,8 @@ public class RegisteredController {
         return registeredService.queryObtainDrSection(ReflectMapUtil.beanToMap(dto));
     }
     @ApiOperation(value = "生成挂号订单", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/saveLockReg", method = RequestMethod.GET)
-    public ResultBody saveLockReg(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegOrderSaveDto dto,
+    @RequestMapping(value = "/api/registered/saveLockReg", method = RequestMethod.POST)
+    public ResultBody saveLockReg(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegOrderSaveDto dto,
                                          BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -126,8 +123,8 @@ public class RegisteredController {
         return new ResultBody();
     }
     @ApiOperation(value = "挂号缴费保存", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/saveReg", method = RequestMethod.GET)
-    public ResultBody saveReg(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegPaySaveDto dto,
+    @RequestMapping(value = "/api/registered/saveReg", method = RequestMethod.POST)
+    public ResultBody saveReg(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegPaySaveDto dto,
                                          BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){

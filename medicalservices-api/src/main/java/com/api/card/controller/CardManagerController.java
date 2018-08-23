@@ -17,10 +17,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -33,8 +30,8 @@ public class CardManagerController {
     @Reference
     CardForPatService cardForPatService;
     @ApiOperation(value = "无卡注册", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/card/saveBooking", method = RequestMethod.GET)
-    public ResultBody saveBooking(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid BookingDto dto,
+    @RequestMapping(value = "/api/card/saveBooking", method = RequestMethod.POST)
+    public ResultBody saveBooking(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid BookingDto dto,
                             BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -45,8 +42,8 @@ public class CardManagerController {
         return cardForPatService.saveBooking(dto);
     }
     @ApiOperation(value = "绑卡", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/card/saveBindCard", method = RequestMethod.GET)
-    public ResultBody saveBindCard(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid BindCardDto dto,
+    @RequestMapping(value = "/api/card/saveBindCard", method = RequestMethod.POST)
+    public ResultBody saveBindCard(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid BindCardDto dto,
                                   BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -56,8 +53,8 @@ public class CardManagerController {
         return cardForPatService.saveBindCard(dto);
     }
     @ApiOperation(value = "解绑", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/card/updateUnBindCard", method = RequestMethod.GET)
-    public ResultBody updateUnBindCard(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid UnBindCardDto dto,
+    @RequestMapping(value = "/api/card/updateUnBindCard", method = RequestMethod.POST)
+    public ResultBody updateUnBindCard(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid UnBindCardDto dto,
                                   BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
@@ -67,8 +64,8 @@ public class CardManagerController {
         return cardForPatService.updateUnBindCard(dto);
     }
     @ApiOperation(value = "查询绑卡信息", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/card/queryCardInfo", method = RequestMethod.GET)
-    public ResultBody queryCardInfo(@ApiParam(value = "dto",required = true)@ModelAttribute @Valid QueryCardDto dto,
+    @RequestMapping(value = "/api/card/queryCardInfo", method = RequestMethod.POST)
+    public ResultBody queryCardInfo(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid QueryCardDto dto,
                                          BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
