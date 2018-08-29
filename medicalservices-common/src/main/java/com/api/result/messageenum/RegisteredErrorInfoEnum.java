@@ -9,7 +9,9 @@ import com.api.result.ErrorInfoInterface;
  */
 public enum RegisteredErrorInfoEnum implements ErrorInfoInterface {
     PARAMS_NO_COMPLETE("1","params no complete"),
-    PARAMS_TRANS_ERROR("2","参数转换异常");
+    PARAMS_TRANS_ERROR("2","参数转换异常"),
+    REG_LOCK_ERROR("3","锁号失败"),
+    REG_PREACCOUNT_ERROR("4","挂号预算失败");
 
     private String code;
 

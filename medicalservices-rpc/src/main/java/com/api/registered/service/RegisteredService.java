@@ -1,6 +1,7 @@
 package com.api.registered.service;
 
 
+import com.api.dto.register.RegOrderSaveDto;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 
@@ -49,4 +50,16 @@ public interface RegisteredService {
      * @return
      */
     ResultBody queryObtainDrSection(Map param) throws GlobalErrorInfoException;
+    /**
+     * 查询当日门诊可挂号号源信息
+     * @param param
+     * @return
+     */
+    ResultBody queryRegSource(Map param) throws GlobalErrorInfoException;
+    /**
+     * 生成挂号订单
+     * @param param
+     * @return
+     */
+    ResultBody saveLockReg(RegOrderSaveDto dto) throws GlobalErrorInfoException;
 }

@@ -1,10 +1,7 @@
 package com.api.card.service;
 
 
-import com.api.dto.card.BindCardDto;
-import com.api.dto.card.BookingDto;
-import com.api.dto.card.QueryCardDto;
-import com.api.dto.card.UnBindCardDto;
+import com.api.dto.card.*;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 
@@ -41,5 +38,13 @@ public interface CardForPatService {
      * @return
      * @throws GlobalErrorInfoException
      */
-    ResultBody queryCardInfo(QueryCardDto dto) throws GlobalErrorInfoException;
+    ResultBody queryCardInfo(QueryCardDto dto) ;
+
+    /**
+     * 查询患者是否绑定就诊卡
+     * @param dto
+     * @return
+     * @throws GlobalErrorInfoException
+     */
+    ResultBody queryCardInfoForPerson(QueryCardForPersonDto dto) throws GlobalErrorInfoException;
 }

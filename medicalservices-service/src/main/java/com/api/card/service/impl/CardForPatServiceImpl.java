@@ -199,7 +199,7 @@ public class CardForPatServiceImpl implements CardForPatService {
     }
 
     @Override
-    public ResultBody queryCardInfo(QueryCardDto dto) throws GlobalErrorInfoException {
+    public ResultBody queryCardInfo(QueryCardDto dto)  {
         CardKey cardQuery = new CardKey();
         cardQuery.setAgency_num(dto.getOrgCode());
         cardQuery.setOut_platform_id(dto.getOut_platform_id());
@@ -207,6 +207,27 @@ public class CardForPatServiceImpl implements CardForPatService {
         List<Card> cards = cardMapper.selectByAccount(cardQuery);
         return new ResultBody(cards);
     }
+
+    @Override
+    public ResultBody queryCardInfoForPerson(QueryCardForPersonDto dto) throws GlobalErrorInfoException {
+        CardKey cardQuery = new CardKey();
+        cardQuery.setChannel(dto.getChannel());
+        cardQuery.setAgency_num(dto.getOrgCode());
+        cardQuery.setOut_platform_id(dto.getOut_platform_id());
+        List<Card> cards = cardMapper.selectByAccount(cardQuery);
+        if(cards == null || cards.size() < 1){
+            return new ResultBody(CardErrorInfoEnum.CARD_NO_PATINFO_EXIST);
+        }
+        for(Object card:cards){
+            Card cardObj = (Card) card;
+            if(cardObj.getIdcard_no().equals(dto.getIdcard_no())){
+                //表示该用户已经绑定就诊卡
+                return new ResultBody(cardObj);
+            }
+        }
+        return new ResultBody(CardErrorInfoEnum.CARD_NO_PATINFO_EXIST);
+    }
+
     private ResultBody checkBindCondition(String out_platform_id,String channel,String idcard_no,String agency_num){
         //step1 先判断该账号是否绑定就诊卡超过5条
         CardKey cardQuery = new CardKey();

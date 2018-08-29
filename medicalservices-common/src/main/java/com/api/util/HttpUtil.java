@@ -5,6 +5,7 @@ import com.api.result.messageenum.GlobalErrorInfoEnum;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -28,12 +29,14 @@ public class HttpUtil {
     public static String doPost(String url, String params) throws Exception {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(2000).build();//设置请求和传输超时时间
         HttpPost httpPost = new HttpPost(url);// 创建httpPost
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-Type", "application/json");
         String charSet = "UTF-8";
         StringEntity entity = new StringEntity(params, charSet);
         httpPost.setEntity(entity);
+        httpPost.setConfig(requestConfig);
         CloseableHttpResponse response = null;
 
         try {
