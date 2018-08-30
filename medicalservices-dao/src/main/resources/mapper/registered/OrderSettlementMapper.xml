@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.registered.dao.OrderSettlementMapper">
+
+	<resultMap id="BaseResultMap" type="com.api.registered.domain.OrderSettlementEntity">
+		<id column="ORDER_ID" property="orderId" />
+		<result column="PATID" property="patid" />
+		<result column="PAT_NAME" property="patName" />
+		<result column="IDCARD" property="idcard" />
+		<result column="CARDTYPE" property="cardtype" />
+		<result column="CARDNO" property="cardno" />
+		<result column="PREREGFLAG" property="preregflag" />
+		<result column="REGTYPE" property="regtype" />
+		<result column="TSCID" property="tscid" />
+		<result column="SEQNUM" property="seqnum" />
+		<result column="TSCDATE" property="tscdate" />
+		<result column="DAYSECTION" property="daysection" />
+		<result column="WHETHERDED" property="whetherded" />
+		<result column="WHETHERSET" property="whetherset" />
+		<result column="HOSPITALCARDNO" property="hospitalcardno" />
+		<result column="PASSWORD" property="password" />
+		<result column="REGID" property="regid" />
+		<result column="DEPTID" property="deptid" />
+		<result column="DEPTNAME" property="deptname" />
+		<result column="DRID" property="drid" />
+		<result column="DRNAME" property="drname" />
+		<result column="REGFEE" property="regfee" />
+		<result column="DISCOUNTSAMT" property="discountsamt" />
+		<result column="PERSONAMT" property="personamt" />
+		<result column="RECEIPTNO" property="receiptno" />
+		<result column="ACCOUNTPAYMENT" property="accountpayment" />
+		<result column="ACCOUNTBALANCE" property="accountbalance" />
+		<result column="TREATFEE" property="treatfee" />
+		<result column="REGAMT" property="regamt" />
+		<result column="PAYMONEY" property="paymoney" />
+		<result column="PAYWAY" property="payway" />
+		<result column="PAYCHANNEL" property="paychannel" />
+		<result column="PAYTRADENO" property="paytradeno" />
+		<result column="REGRECEIPT" property="regreceipt" />
+		<result column="STATUS" property="status" />
+		<result column="RECEIPTLIST" property="receiptlist" />
+		<result column="CHARGETYPELIST" property="chargetypelist" />
+		<result column="PERSONAMTLIST" property="personamtlist" />
+		<result column="PYCKJH" property="pyckjh" />
+		<result column="FYCKJH" property="fyckjh" />
+		<result column="SJHINFO" property="sjhinfo" />
+		<result column="ACCOUNTDATE" property="accountdate" />
+		<result column="ADD_TIME" property="addTime" />
+		<result column="LAST_UPDATE" property="lastUpdate" />
+	</resultMap>
+
+	<sql id="table-name">yw_order_settlement</sql>
+
+	<sql id="all-column">ORDER_ID ,PATID ,PAT_NAME ,IDCARD ,CARDTYPE ,CARDNO ,PREREGFLAG ,REGTYPE ,TSCID ,SEQNUM ,TSCDATE ,DAYSECTION ,WHETHERDED ,WHETHERSET ,HOSPITALCARDNO ,PASSWORD ,REGID ,DEPTID ,DEPTNAME ,DRID ,DRNAME ,REGFEE ,DISCOUNTSAMT ,PERSONAMT ,RECEIPTNO ,ACCOUNTPAYMENT ,ACCOUNTBALANCE ,TREATFEE ,REGAMT ,PAYMONEY ,PAYWAY ,PAYCHANNEL ,PAYTRADENO ,REGRECEIPT ,STATUS ,RECEIPTLIST ,CHARGETYPELIST ,PERSONAMTLIST ,PYCKJH ,FYCKJH ,SJHINFO ,ACCOUNTDATE ,ADD_TIME ,LAST_UPDATE	</sql>
+
+	<sql id="all-query-condition">
+	   <if test="orderId != null and orderId != ''">
+	      and ORDER_ID = #{orderId}
+    </if>
+	   <if test="patid != null and patid != ''">
+	      and PATID = #{patid}
+    </if>
+	   <if test="patName != null and patName != ''">
+	      and PAT_NAME = #{patName}
+    </if>
+	   <if test="idcard != null and idcard != ''">
+	      and IDCARD = #{idcard}
+    </if>
+	   <if test="cardtype != null and cardtype != ''">
+	      and CARDTYPE = #{cardtype}
+    </if>
+	   <if test="cardno != null and cardno != ''">
+	      and CARDNO = #{cardno}
+    </if>
+		<if test="preregflag != null">
+	      and PREREGFLAG = #{preregflag}
+    </if>
+		<if test="regtype != null">
+	      and REGTYPE = #{regtype}
+    </if>
+	   <if test="tscid != null and tscid != ''">
+	      and TSCID = #{tscid}
+    </if>
+		<if test="seqnum != null">
+	      and SEQNUM = #{seqnum}
+    </if>
+		<if test="tscdate != null">
+	      and TSCDATE = #{tscdate}
+    </if>
+		<if test="daysection != null">
+	      and DAYSECTION = #{daysection}
+    </if>
+		<if test="whetherded != null">
+	      and WHETHERDED = #{whetherded}
+    </if>
+		<if test="whetherset != null">
+	      and WHETHERSET = #{whetherset}
+    </if>
+	   <if test="hospitalcardno != null and hospitalcardno != ''">
+	      and HOSPITALCARDNO = #{hospitalcardno}
+    </if>
+	   <if test="password != null and password != ''">
+	      and PASSWORD = #{password}
+    </if>
+	   <if test="regid != null and regid != ''">
+	      and REGID = #{regid}
+    </if>
+	   <if test="deptid != null and deptid != ''">
+	      and DEPTID = #{deptid}
+    </if>
+	   <if test="deptname != null and deptname != ''">
+	      and DEPTNAME = #{deptname}
+    </if>
+	   <if test="drid != null and drid != ''">
+	      and DRID = #{drid}
+    </if>
+	   <if test="drname != null and drname != ''">
+	      and DRNAME = #{drname}
+    </if>
+		<if test="regfee != null">
+	      and REGFEE = #{regfee}
+    </if>
+		<if test="discountsamt != null">
+	      and DISCOUNTSAMT = #{discountsamt}
+    </if>
+		<if test="personamt != null">
+	      and PERSONAMT = #{personamt}
+    </if>
+	   <if test="receiptno != null and receiptno != ''">
+	      and RECEIPTNO = #{receiptno}
+    </if>
+		<if test="accountpayment != null">
+	      and ACCOUNTPAYMENT = #{accountpayment}
+    </if>
+		<if test="accountbalance != null">
+	      and ACCOUNTBALANCE = #{accountbalance}
+    </if>
+		<if test="treatfee != null">
+	      and TREATFEE = #{treatfee}
+    </if>
+		<if test="regamt != null">
+	      and REGAMT = #{regamt}
+    </if>
+		<if test="paymoney != null">
+	      and PAYMONEY = #{paymoney}
+    </if>
+	   <if test="payway != null and payway != ''">
+	      and PAYWAY = #{payway}
+    </if>
+	   <if test="paychannel != null and paychannel != ''">
+	      and PAYCHANNEL = #{paychannel}
+    </if>
+	   <if test="paytradeno != null and paytradeno != ''">
+	      and PAYTRADENO = #{paytradeno}
+    </if>
+	   <if test="regreceipt != null and regreceipt != ''">
+	      and REGRECEIPT = #{regreceipt}
+    </if>
+		<if test="status != null">
+	      and STATUS = #{status}
+    </if>
+	   <if test="receiptlist != null and receiptlist != ''">
+	      and RECEIPTLIST = #{receiptlist}
+    </if>
+	   <if test="chargetypelist != null and chargetypelist != ''">
+	      and CHARGETYPELIST = #{chargetypelist}
+    </if>
+	   <if test="personamtlist != null and personamtlist != ''">
+	      and PERSONAMTLIST = #{personamtlist}
+    </if>
+	   <if test="pyckjh != null and pyckjh != ''">
+	      and PYCKJH = #{pyckjh}
+    </if>
+	   <if test="fyckjh != null and fyckjh != ''">
+	      and FYCKJH = #{fyckjh}
+    </if>
+	   <if test="sjhinfo != null and sjhinfo != ''">
+	      and SJHINFO = #{sjhinfo}
+    </if>
+		<if test="accountdate != null">
+	      and ACCOUNTDATE = #{accountdate}
+    </if>
+		<if test="addTime != null">
+	      and ADD_TIME = #{addTime}
+    </if>
+		<if test="lastUpdate != null">
+	      and LAST_UPDATE = #{lastUpdate}
+    </if>
+	</sql>
+	
+	
+	<!-- Selective Insert-->
+	<insert id="insertSelective" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.api.registered.domain.OrderSettlementEntity">
+		insert into <include refid="table-name"/>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	   <if test="orderId != null and orderId != ''">
+	  	        ORDER_ID,
+  	        </if>
+	   <if test="patid != null and patid != ''">
+	  	        PATID,
+  	        </if>
+	   <if test="patName != null and patName != ''">
+	  	        PAT_NAME,
+  	        </if>
+	   <if test="idcard != null and idcard != ''">
+	  	        IDCARD,
+  	        </if>
+	   <if test="cardtype != null and cardtype != ''">
+	  	        CARDTYPE,
+  	        </if>
+	   <if test="cardno != null and cardno != ''">
+	  	        CARDNO,
+  	        </if>
+		<if test="preregflag != null">
+	  	        PREREGFLAG,
+  	        </if>
+		<if test="regtype != null">
+	  	        REGTYPE,
+  	        </if>
+	   <if test="tscid != null and tscid != ''">
+	  	        TSCID,
+  	        </if>
+		<if test="seqnum != null">
+	  	        SEQNUM,
+  	        </if>
+		<if test="tscdate != null">
+	  	        TSCDATE,
+  	        </if>
+		<if test="daysection != null">
+	  	        DAYSECTION,
+  	        </if>
+		<if test="whetherded != null">
+	  	        WHETHERDED,
+  	        </if>
+		<if test="whetherset != null">
+	  	        WHETHERSET,
+  	        </if>
+	   <if test="hospitalcardno != null and hospitalcardno != ''">
+	  	        HOSPITALCARDNO,
+  	        </if>
+	   <if test="password != null and password != ''">
+	  	        PASSWORD,
+  	        </if>
+	   <if test="regid != null and regid != ''">
+	  	        REGID,
+  	        </if>
+	   <if test="deptid != null and deptid != ''">
+	  	        DEPTID,
+  	        </if>
+	   <if test="deptname != null and deptname != ''">
+	  	        DEPTNAME,
+  	        </if>
+	   <if test="drid != null and drid != ''">
+	  	        DRID,
+  	        </if>
+	   <if test="drname != null and drname != ''">
+	  	        DRNAME,
+  	        </if>
+		<if test="regfee != null">
+	  	        REGFEE,
+  	        </if>
+		<if test="discountsamt != null">
+	  	        DISCOUNTSAMT,
+  	        </if>
+		<if test="personamt != null">
+	  	        PERSONAMT,
+  	        </if>
+	   <if test="receiptno != null and receiptno != ''">
+	  	        RECEIPTNO,
+  	        </if>
+		<if test="accountpayment != null">
+	  	        ACCOUNTPAYMENT,
+  	        </if>
+		<if test="accountbalance != null">
+	  	        ACCOUNTBALANCE,
+  	        </if>
+		<if test="treatfee != null">
+	  	        TREATFEE,
+  	        </if>
+		<if test="regamt != null">
+	  	        REGAMT,
+  	        </if>
+		<if test="paymoney != null">
+	  	        PAYMONEY,
+  	        </if>
+	   <if test="payway != null and payway != ''">
+	  	        PAYWAY,
+  	        </if>
+	   <if test="paychannel != null and paychannel != ''">
+	  	        PAYCHANNEL,
+  	        </if>
+	   <if test="paytradeno != null and paytradeno != ''">
+	  	        PAYTRADENO,
+  	        </if>
+	   <if test="regreceipt != null and regreceipt != ''">
+	  	        REGRECEIPT,
+  	        </if>
+		<if test="status != null">
+	  	        STATUS,
+  	        </if>
+	   <if test="receiptlist != null and receiptlist != ''">
+	  	        RECEIPTLIST,
+  	        </if>
+	   <if test="chargetypelist != null and chargetypelist != ''">
+	  	        CHARGETYPELIST,
+  	        </if>
+	   <if test="personamtlist != null and personamtlist != ''">
+	  	        PERSONAMTLIST,
+  	        </if>
+	   <if test="pyckjh != null and pyckjh != ''">
+	  	        PYCKJH,
+  	        </if>
+	   <if test="fyckjh != null and fyckjh != ''">
+	  	        FYCKJH,
+  	        </if>
+	   <if test="sjhinfo != null and sjhinfo != ''">
+	  	        SJHINFO,
+  	        </if>
+		<if test="accountdate != null">
+	  	        ACCOUNTDATE,
+  	        </if>
+	  	        ADD_TIME,
+	  	        LAST_UPDATE
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+ 	   <if test="orderId != null and orderId != ''">
+	  	        #{orderId},
+  	        </if>
+   	   <if test="patid != null and patid != ''">
+	  	        #{patid},
+  	        </if>
+   	   <if test="patName != null and patName != ''">
+	  	        #{patName},
+  	        </if>
+   	   <if test="idcard != null and idcard != ''">
+	  	        #{idcard},
+  	        </if>
+   	   <if test="cardtype != null and cardtype != ''">
+	  	        #{cardtype},
+  	        </if>
+   	   <if test="cardno != null and cardno != ''">
+	  	        #{cardno},
+  	        </if>
+   		<if test="preregflag != null">
+	  	        #{preregflag},
+  	        </if>
+   		<if test="regtype != null">
+	  	        #{regtype},
+  	        </if>
+   	   <if test="tscid != null and tscid != ''">
+	  	        #{tscid},
+  	        </if>
+   		<if test="seqnum != null">
+	  	        #{seqnum},
+  	        </if>
+   		<if test="tscdate != null">
+	  	        #{tscdate},
+  	        </if>
+   		<if test="daysection != null">
+	  	        #{daysection},
+  	        </if>
+   		<if test="whetherded != null">
+	  	        #{whetherded},
+  	        </if>
+   		<if test="whetherset != null">
+	  	        #{whetherset},
+  	        </if>
+   	   <if test="hospitalcardno != null and hospitalcardno != ''">
+	  	        #{hospitalcardno},
+  	        </if>
+   	   <if test="password != null and password != ''">
+	  	        #{password},
+  	        </if>
+   	   <if test="regid != null and regid != ''">
+	  	        #{regid},
+  	        </if>
+   	   <if test="deptid != null and deptid != ''">
+	  	        #{deptid},
+  	        </if>
+   	   <if test="deptname != null and deptname != ''">
+	  	        #{deptname},
+  	        </if>
+   	   <if test="drid != null and drid != ''">
+	  	        #{drid},
+  	        </if>
+   	   <if test="drname != null and drname != ''">
+	  	        #{drname},
+  	        </if>
+   		<if test="regfee != null">
+	  	        #{regfee},
+  	        </if>
+   		<if test="discountsamt != null">
+	  	        #{discountsamt},
+  	        </if>
+   		<if test="personamt != null">
+	  	        #{personamt},
+  	        </if>
+   	   <if test="receiptno != null and receiptno != ''">
+	  	        #{receiptno},
+  	        </if>
+   		<if test="accountpayment != null">
+	  	        #{accountpayment},
+  	        </if>
+   		<if test="accountbalance != null">
+	  	        #{accountbalance},
+  	        </if>
+   		<if test="treatfee != null">
+	  	        #{treatfee},
+  	        </if>
+   		<if test="regamt != null">
+	  	        #{regamt},
+  	        </if>
+   		<if test="paymoney != null">
+	  	        #{paymoney},
+  	        </if>
+   	   <if test="payway != null and payway != ''">
+	  	        #{payway},
+  	        </if>
+   	   <if test="paychannel != null and paychannel != ''">
+	  	        #{paychannel},
+  	        </if>
+   	   <if test="paytradeno != null and paytradeno != ''">
+	  	        #{paytradeno},
+  	        </if>
+   	   <if test="regreceipt != null and regreceipt != ''">
+	  	        #{regreceipt},
+  	        </if>
+   		<if test="status != null">
+	  	        #{status},
+  	        </if>
+   	   <if test="receiptlist != null and receiptlist != ''">
+	  	        #{receiptlist},
+  	        </if>
+   	   <if test="chargetypelist != null and chargetypelist != ''">
+	  	        #{chargetypelist},
+  	        </if>
+   	   <if test="personamtlist != null and personamtlist != ''">
+	  	        #{personamtlist},
+  	        </if>
+   	   <if test="pyckjh != null and pyckjh != ''">
+	  	        #{pyckjh},
+  	        </if>
+   	   <if test="fyckjh != null and fyckjh != ''">
+	  	        #{fyckjh},
+  	        </if>
+   	   <if test="sjhinfo != null and sjhinfo != ''">
+	  	        #{sjhinfo},
+  	        </if>
+   		<if test="accountdate != null">
+	  	        #{accountdate},
+  	        </if>
+   		now(),
+   		now()
+  		</trim>
+	</insert>
+
+	<!-- Batch Selective -->
+	<insert id="insertRecords" parameterType="java.util.List">
+		insert into <include refid="table-name"/>
+		<trim prefix="(" suffix=")values">
+		 	<include refid="all-column"/>
+		</trim>
+		<foreach collection="records" item="record"  separator=",">
+		  (		#{orderId},
+			#{patid},
+			#{patName},
+			#{idcard},
+			#{cardtype},
+			#{cardno},
+			#{preregflag},
+			#{regtype},
+			#{tscid},
+			#{seqnum},
+			#{tscdate},
+			#{daysection},
+			#{whetherded},
+			#{whetherset},
+			#{hospitalcardno},
+			#{password},
+			#{regid},
+			#{deptid},
+			#{deptname},
+			#{drid},
+			#{drname},
+			#{regfee},
+			#{discountsamt},
+			#{personamt},
+			#{receiptno},
+			#{accountpayment},
+			#{accountbalance},
+			#{treatfee},
+			#{regamt},
+			#{paymoney},
+			#{payway},
+			#{paychannel},
+			#{paytradeno},
+			#{regreceipt},
+			#{status},
+			#{receiptlist},
+			#{chargetypelist},
+			#{personamtlist},
+			#{pyckjh},
+			#{fyckjh},
+			#{sjhinfo},
+			#{accountdate},
+			#{addTime},
+			#{lastUpdate}
+		   )
+		</foreach>
+	</insert>
+	
+	<!-- Query limit one -->
+	<select id="queryLimitOne" resultMap="BaseResultMap" parameterType="com.api.registered.domain.OrderSettlementEntity">
+		select <include refid="all-column" /> from <include refid="table-name"/> 
+		where 1=1   <include refid="all-query-condition"/>
+        limit 1
+	</select>
+	
+	<!-- Query By Cond -->
+	<select id="queryByCond" resultMap="BaseResultMap" parameterType="com.api.registered.domain.OrderSettlementEntity">
+		select <include refid="all-column" /> from <include refid="table-name"/> 
+		where 1=1 <include refid="all-query-condition"/> 
+	</select>
+	
+	<!-- Query By Primary Key -->
+	<select id="queryByOrderId" resultMap="BaseResultMap">
+		select
+		<include refid="all-column" />
+		from <include refid="table-name"/> where ORDER_ID = #{orderId}
+	</select>
+	
+	<!-- Query By Primary Keys-->
+	<select id="queryByOrderIds" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		<include refid="all-column" />
+		from <include refid="table-name"/> where ORDER_ID in 
+		<foreach collection="keys" item="key" open="(" close=")" separator=",">
+			#{key}
+		</foreach>
+	</select>
+	
+	<!-- Update By Primary Key -->
+	<update id="updateOrderSettlementByOrderId" parameterType="com.api.registered.domain.OrderSettlementEntity">
+		update <include refid="table-name" />
+		<set>
+	   <if test="orderId != null and orderId != ''">
+		        ORDER_ID = #{orderId},
+			</if>
+				   <if test="patid != null and patid != ''">
+		        PATID = #{patid},
+			</if>
+				   <if test="patName != null and patName != ''">
+		        PAT_NAME = #{patName},
+			</if>
+				   <if test="idcard != null and idcard != ''">
+		        IDCARD = #{idcard},
+			</if>
+				   <if test="cardtype != null and cardtype != ''">
+		        CARDTYPE = #{cardtype},
+			</if>
+				   <if test="cardno != null and cardno != ''">
+		        CARDNO = #{cardno},
+			</if>
+					<if test="preregflag != null">
+		        PREREGFLAG = #{preregflag},
+			</if>
+					<if test="regtype != null">
+		        REGTYPE = #{regtype},
+			</if>
+				   <if test="tscid != null and tscid != ''">
+		        TSCID = #{tscid},
+			</if>
+					<if test="seqnum != null">
+		        SEQNUM = #{seqnum},
+			</if>
+					<if test="tscdate != null">
+		        TSCDATE = #{tscdate},
+			</if>
+					<if test="daysection != null">
+		        DAYSECTION = #{daysection},
+			</if>
+					<if test="whetherded != null">
+		        WHETHERDED = #{whetherded},
+			</if>
+					<if test="whetherset != null">
+		        WHETHERSET = #{whetherset},
+			</if>
+				   <if test="hospitalcardno != null and hospitalcardno != ''">
+		        HOSPITALCARDNO = #{hospitalcardno},
+			</if>
+				   <if test="password != null and password != ''">
+		        PASSWORD = #{password},
+			</if>
+				   <if test="regid != null and regid != ''">
+		        REGID = #{regid},
+			</if>
+				   <if test="deptid != null and deptid != ''">
+		        DEPTID = #{deptid},
+			</if>
+				   <if test="deptname != null and deptname != ''">
+		        DEPTNAME = #{deptname},
+			</if>
+				   <if test="drid != null and drid != ''">
+		        DRID = #{drid},
+			</if>
+				   <if test="drname != null and drname != ''">
+		        DRNAME = #{drname},
+			</if>
+					<if test="regfee != null">
+		        REGFEE = #{regfee},
+			</if>
+					<if test="discountsamt != null">
+		        DISCOUNTSAMT = #{discountsamt},
+			</if>
+					<if test="personamt != null">
+		        PERSONAMT = #{personamt},
+			</if>
+				   <if test="receiptno != null and receiptno != ''">
+		        RECEIPTNO = #{receiptno},
+			</if>
+					<if test="accountpayment != null">
+		        ACCOUNTPAYMENT = #{accountpayment},
+			</if>
+					<if test="accountbalance != null">
+		        ACCOUNTBALANCE = #{accountbalance},
+			</if>
+					<if test="treatfee != null">
+		        TREATFEE = #{treatfee},
+			</if>
+					<if test="regamt != null">
+		        REGAMT = #{regamt},
+			</if>
+					<if test="paymoney != null">
+		        PAYMONEY = #{paymoney},
+			</if>
+				   <if test="payway != null and payway != ''">
+		        PAYWAY = #{payway},
+			</if>
+				   <if test="paychannel != null and paychannel != ''">
+		        PAYCHANNEL = #{paychannel},
+			</if>
+				   <if test="paytradeno != null and paytradeno != ''">
+		        PAYTRADENO = #{paytradeno},
+			</if>
+				   <if test="regreceipt != null and regreceipt != ''">
+		        REGRECEIPT = #{regreceipt},
+			</if>
+					<if test="status != null">
+		        STATUS = #{status},
+			</if>
+				   <if test="receiptlist != null and receiptlist != ''">
+		        RECEIPTLIST = #{receiptlist},
+			</if>
+				   <if test="chargetypelist != null and chargetypelist != ''">
+		        CHARGETYPELIST = #{chargetypelist},
+			</if>
+				   <if test="personamtlist != null and personamtlist != ''">
+		        PERSONAMTLIST = #{personamtlist},
+			</if>
+				   <if test="pyckjh != null and pyckjh != ''">
+		        PYCKJH = #{pyckjh},
+			</if>
+				   <if test="fyckjh != null and fyckjh != ''">
+		        FYCKJH = #{fyckjh},
+			</if>
+				   <if test="sjhinfo != null and sjhinfo != ''">
+		        SJHINFO = #{sjhinfo},
+			</if>
+					<if test="accountdate != null">
+		        ACCOUNTDATE = #{accountdate},
+			</if>
+					<if test="addTime != null">
+		        ADD_TIME = #{addTime},
+			</if>
+					<if test="lastUpdate != null">
+	            LAST_UPDATE = #{lastUpdate}
+			</if>
+					</set>
+		<where>ORDER_ID = #{orderId}</where>
+	</update>
+	
+	<!-- Delete By primary Keys -->
+	<delete id="deleteOrderSettlementByOrderId">
+		delete from <include refid="table-name" /> 
+		<where>ORDER_ID = #{orderId}</where>
+	</delete>
+	
+</mapper>

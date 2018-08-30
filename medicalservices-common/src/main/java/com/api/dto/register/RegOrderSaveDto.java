@@ -31,7 +31,7 @@ public class RegOrderSaveDto extends ParentDto {
     @NotEmpty(message = "排班id不能为空")
     private String tscid;
     //号源序号
-    @ApiModelProperty(name="seqnum",value="号源序号(挂号时可空（若医院当日挂号只到号源，不分号序，则可以为空），预约时传预约登记号)",example="1")
+    @ApiModelProperty(name="seqnum",value="号源序号(挂号时可空（若医院当日挂号只到号源，不分号序，则可以为空）)",example="1")
     private String seqnum;
     //挂号日期
     @ApiModelProperty(name="tscdate",value="挂号日期",example="2018-08-28",required =true)

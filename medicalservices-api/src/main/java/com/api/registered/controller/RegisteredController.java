@@ -122,16 +122,14 @@ public class RegisteredController {
         //调用服务
         return registeredService.saveLockReg(dto);
     }
-    @ApiOperation(value = "挂号缴费保存", notes = "", response = ResultBody.class)
-    @RequestMapping(value = "/api/registered/saveReg", method = RequestMethod.POST)
-    public ResultBody saveReg(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegPaySaveDto dto,
+    @ApiOperation(value = "挂号缴费结算", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/regAccount", method = RequestMethod.POST)
+    public ResultBody regAccount(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegAccountDto dto,
                                          BindingResult bindingResult) throws GlobalErrorInfoException {
         //验证参数
         if(bindingResult.hasErrors()){
             throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
         }
-        //todo step1 保存支付数据
-        //todo step2 异步通知his
-        return new ResultBody();
+        return registeredService.regAccount(dto);
     }
 }

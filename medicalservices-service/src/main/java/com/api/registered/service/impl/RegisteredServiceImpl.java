@@ -5,6 +5,7 @@ import com.api.card.domain.Card;
 import com.api.card.service.CardForPatService;
 import com.api.constant.IConst;
 import com.api.dto.card.QueryCardForPersonDto;
+import com.api.dto.register.RegAccountDto;
 import com.api.dto.register.RegOrderSaveDto;
 import com.api.dto.register.RegPreAccountDto;
 import com.api.dto.register.RegRegisterDto;
@@ -122,6 +123,8 @@ public class RegisteredServiceImpl implements RegisteredService {
             //step 2.2 生成锁号记录单存储至数据库
             RegistrationDetailEntity registrationDetailEntity = new RegistrationDetailEntity(orderid,card,dto,lockInfo,"1");
             registrationDetailMapper.insertSelective(registrationDetailEntity);
+            registrationDetailEntity.setCardtype(card.getType());//传递卡类型参数取消锁号使用
+            dto.setSeqnum(lockInfo.get("yydjh").toString());//挂号时可空（若医院当日挂号只到号源，不分号序，则可以为空），预约时传预约登记号
             //step 2.3 启用10分钟后不支付自动取消锁号
             Msg msg = new Msg();
             msg.setCount(1);
@@ -152,10 +155,10 @@ public class RegisteredServiceImpl implements RegisteredService {
         orderSettlementMapper.insertSelective(orderSettlementEntity);
         //step 5 生成系统挂号订单
         OrderEntity orderEntity = new OrderEntity(orderid,card,dto,preRegInfo,"1");
-        orderEntity.setConsumeType("1");
-        orderEntity.setPayResult("01");
+        orderEntity.setConsumeType("1");//表示挂号
+        orderEntity.setPayResult("01");//支付初始状态
         orderEntity.setRemarks("挂号订单");
-        orderEntity.setHisResult("01");
+        orderEntity.setHisResult("01");//his标识初始状态
         orderMapper.insertSelective(orderEntity);
         Map result = new HashMap();
         result.put("orderId",orderid);
@@ -163,6 +166,10 @@ public class RegisteredServiceImpl implements RegisteredService {
         result.put("payWay",orderEntity.getPayway());
         result.put("payType",orderEntity.getPayType());
         return new ResultBody(result);
+    }
+    @Override
+    public ResultBody regAccount(RegAccountDto dto) throws GlobalErrorInfoException {
+        return null;
     }
     private ResultBody serviceInvoke(Map param) throws GlobalErrorInfoException {
         return service.sendMsg(param, setting.getUrl());

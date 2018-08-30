@@ -25,7 +25,13 @@ public class HISCommonInterfaceTransAdapterImpl extends AHISTransAdapter {
 
 	@Override
 	protected ResultBody handleResult(String resultMsg) throws GlobalErrorInfoException {
-        Map hisData = JSONObject.parseObject(resultMsg);
+		Map hisData;
+		try {
+			hisData = JSONObject.parseObject(resultMsg);
+		}catch (Exception e){
+			logger.error("his交互异常:his返回数据格式错误");
+			throw new GlobalErrorInfoException(GlobalErrorInfoEnum.HIS_RESULT_ERROR);
+		}
         ResultBody result = new ResultBody();
 		//获取his交互结果码
 		if(hisData != null && hisData.get("msgCode")!=null){
