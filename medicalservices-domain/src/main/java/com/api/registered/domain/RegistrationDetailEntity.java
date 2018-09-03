@@ -103,9 +103,9 @@ public class RegistrationDetailEntity implements Serializable {
 		this.setDrid(param.get("drId")==null?"":param.get("drId").toString());
 		this.setDrname(param.get("drName")==null?"":param.get("drName").toString());
 		this.setDrtitle(param.get("drTitle")==null?"":param.get("drTitle").toString());
-		this.setRegfee(param.get("regFee")==null||"".equals(param.get("regFee"))?new BigDecimal("0.00"):new BigDecimal(param.get("regFee").toString()));
-		this.setTreatfee(param.get("treatFee")==null||"".equals(param.get("treatFee"))?new BigDecimal("0.00"):new BigDecimal(param.get("treatFee").toString()));
-		this.setRegamt(param.get("regAmt")==null||"".equals(param.get("regAmt"))?new BigDecimal("0.00"):new BigDecimal(param.get("regAmt").toString()));
+		this.setRegfee(param.get("regFee")==null||"".equals(param.get("regFee").toString())?new BigDecimal("0.00"):new BigDecimal(param.get("regFee").toString()));
+		this.setTreatfee(param.get("treatFee")==null||"".equals(param.get("treatFee").toString())?new BigDecimal("0.00"):new BigDecimal(param.get("treatFee").toString()));
+		this.setRegamt(param.get("regAmt")==null||"".equals(param.get("regAmt").toString())?new BigDecimal("0.00"):new BigDecimal(param.get("regAmt").toString()));
 		this.setStatus(status);
 	}
 	public RegistrationDetailEntity(){

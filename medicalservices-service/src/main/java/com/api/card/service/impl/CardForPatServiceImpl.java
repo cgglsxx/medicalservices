@@ -209,7 +209,7 @@ public class CardForPatServiceImpl implements CardForPatService {
     }
 
     @Override
-    public ResultBody queryCardInfoForPerson(QueryCardForPersonDto dto) throws GlobalErrorInfoException {
+    public ResultBody queryCardInfoForPerson(QueryCardForPersonDto dto) {
         CardKey cardQuery = new CardKey();
         cardQuery.setChannel(dto.getChannel());
         cardQuery.setAgency_num(dto.getOrgCode());

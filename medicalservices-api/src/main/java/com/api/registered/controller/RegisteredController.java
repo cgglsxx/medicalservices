@@ -132,4 +132,24 @@ public class RegisteredController {
         }
         return registeredService.regAccount(dto);
     }
+    @ApiOperation(value = "门诊已预约、挂号信息查询", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/queryRegisterInformation", method = RequestMethod.POST)
+    public ResultBody queryRegisterInformation(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegInfoDto dto,
+                                 BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        return registeredService.queryRegisterInformation(dto);
+    }
+    @ApiOperation(value = "进行门诊预约、挂号结算取消", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/cancelRegAccount", method = RequestMethod.POST)
+    public ResultBody cancelRegAccount(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegRefundDto dto,
+                                 BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        return registeredService.cancelRegAccount(dto);
+    }
 }

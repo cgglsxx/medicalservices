@@ -106,8 +106,9 @@ public class OrderEntity implements Serializable {
 		this.idcard = card.getIdcard_no();
 		this.cardno = card.getCardno();
 		this.paychannel = dto.getChannel();
-		this.payway = dto.getPayway();
-		this.payType = dto.getPayType();
+	}
+	public  OrderEntity(){
+
 	}
 	/**{@linkplain #orderId}*/
 	public OrderEntity setOrderId(String orderId) {

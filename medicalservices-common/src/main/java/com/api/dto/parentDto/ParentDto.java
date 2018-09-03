@@ -26,9 +26,9 @@ public class ParentDto implements Serializable{
     @ToMapAnno(name = "hosId")
     private String hosId ="B001";
     //院区名称
-    @ApiModelProperty(name="hospital",value="院区名称",example = "贵阳人民医院")
+    @ApiModelProperty(name="hospital",value="院区名称",example = "遵义医学院附属口腔医院")
     @ToMapAnno(name = "hospital")
-    private String hospital = "贵阳人民医院";
+    private String hospital = "遵义医学院附属口腔医院";
     //应用编码
     @ApiModelProperty(name="appCode",value="应用编码",example = "99")
     @ToMapAnno(name = "appCode")

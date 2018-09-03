@@ -6,7 +6,9 @@ import com.api.dto.register.CancelRegisterDto;
 import com.api.mq.config.RabbitConfig;
 import com.api.mq.model.Msg;
 import com.api.mq.scenes.sendmq.MsgSender;
+import com.api.registered.dao.OrderMapper;
 import com.api.registered.dao.RegistrationDetailMapper;
+import com.api.registered.domain.OrderEntity;
 import com.api.registered.domain.RegistrationDetailEntity;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
@@ -38,13 +40,22 @@ public class MsgReceiver {
     RegistrationDetailMapper registrationDetailMapper;
     @Autowired
     HISCommonInterfaceTransAdapterImpl service;
+    @Autowired
+    OrderMapper orderMapper;
     @RabbitListener(queues = {RabbitConfig.PROCESS_CANCELLOCKREG_QUEUE})
     @RabbitHandler
     public void processForCancelReg(Msg msg) throws  GlobalErrorInfoException {
-        //step1获取登记信息
+        //step1获取登记信息 判断订单是否支付
         RegistrationDetailEntity registrationDetailEntity = (RegistrationDetailEntity) msg.getObj();
         logger.info("订单（"+registrationDetailEntity.getOrderId()+"）接收到取消锁号消息通知:当前进行第"+msg.getCount()+"次取消锁号");
         boolean flag = true;//表示取消锁号成功
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderId(registrationDetailEntity.getOrderId());
+        OrderEntity order = orderMapper.queryLimitOne(orderEntity);
+        if(order != null &&  "02".equals(order.getPayResult())){
+            //表示该订单已经支付成功 无需取消
+            return;
+        }
         //step 2 取消锁号
         CancelRegisterDto cancelRegisterDto = new CancelRegisterDto();
         cancelRegisterDto.setCardNo(registrationDetailEntity.getCardno());

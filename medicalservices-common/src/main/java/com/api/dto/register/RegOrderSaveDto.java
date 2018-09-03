@@ -19,9 +19,6 @@ public class RegOrderSaveDto extends ParentDto {
     @ApiModelProperty(name="channel",value="渠道",example="10",required =true)
     @NotEmpty(message = "渠道不能为空")
     private String channel;
-    @ApiModelProperty(name="orgCode",value="机构编号",example="429204962",required =true)
-    @NotEmpty(message = "机构编号不能为空")
-    private String orgCode;
     //身份证号
     @ApiModelProperty(name="idcard_no",value="身份证号",example="513029199008170677",required =true)
     @NotEmpty(message = "身份证不能为空")
@@ -72,12 +69,6 @@ public class RegOrderSaveDto extends ParentDto {
     //备注信息
     @ApiModelProperty(name="remark",value="备注信息",example="挂号订单")
     private String remark;
-    //支付方式
-    @ApiModelProperty(name="payway",value="支付方式(0-无第三方支付（即个人支付金额为0），1-支付宝，2-微信支付，3-银联卡支付，4-院内支付)",example="2",required = true)
-    private String payway;
-    //支付类型
-    @ApiModelProperty(name="payType",value="支付类型(1 线上支付 2 当面付)",example="1",required = true)
-    private String payType;
 
     public String getOut_platform_id() {
         return out_platform_id;
@@ -93,16 +84,6 @@ public class RegOrderSaveDto extends ParentDto {
 
     public void setChannel(String channel) {
         this.channel = channel;
-    }
-
-    @Override
-    public String getOrgCode() {
-        return orgCode;
-    }
-
-    @Override
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
     }
 
     public String getIdcard_no() {
@@ -217,19 +198,4 @@ public class RegOrderSaveDto extends ParentDto {
         this.remark = remark;
     }
 
-    public String getPayway() {
-        return payway;
-    }
-
-    public void setPayway(String payway) {
-        this.payway = payway;
-    }
-
-    public String getPayType() {
-        return payType;
-    }
-
-    public void setPayType(String payType) {
-        this.payType = payType;
-    }
 }

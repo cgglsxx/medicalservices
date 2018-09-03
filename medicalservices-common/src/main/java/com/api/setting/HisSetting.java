@@ -10,6 +10,7 @@ public class HisSetting {
     private String url;
     private String key;
     private String redisLockCardPre;
+    private String redisLockRegAccount;
 
     public String getUrl() {
         return url;
@@ -29,6 +30,14 @@ public class HisSetting {
 
     public String getRedisLockCardPre() {
         return redisLockCardPre;
+    }
+
+    public String getRedisLockRegAccount() {
+        return redisLockRegAccount;
+    }
+
+    public void setRedisLockRegAccount(String redisLockRegAccount) {
+        this.redisLockRegAccount = redisLockRegAccount;
     }
 
     public void setRedisLockCardPre(String redisLockCardPre) {

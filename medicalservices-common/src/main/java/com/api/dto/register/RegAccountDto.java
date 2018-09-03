@@ -19,9 +19,6 @@ public class RegAccountDto extends ParentDto {
     @ApiModelProperty(name="channel",value="渠道",example="10",required =true)
     @NotEmpty(message = "渠道不能为空")
     private String channel;
-    @ApiModelProperty(name="orgCode",value="机构编号",example="429204962",required =true)
-    @NotEmpty(message = "机构编号不能为空")
-    private String orgCode;
     //订单编号
     @ApiModelProperty(name="orderId",value="订单编号",example="36a43657f70f4538b2e913796768a984",required =true)
     @NotEmpty(message = "订单编号不能为空")
@@ -61,16 +58,6 @@ public class RegAccountDto extends ParentDto {
 
     public void setChannel(String channel) {
         this.channel = channel;
-    }
-
-    @Override
-    public String getOrgCode() {
-        return orgCode;
-    }
-
-    @Override
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
     }
 
     public String getPersonAmt() {
@@ -119,5 +106,13 @@ public class RegAccountDto extends ParentDto {
 
     public void setPayTradeno(String payTradeno) {
         this.payTradeno = payTradeno;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

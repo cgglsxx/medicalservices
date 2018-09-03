@@ -167,29 +167,32 @@ public class OrderSettlementEntity implements Serializable {
 		this.preregflag = dto.getPreregFlag();
 		this.regtype = dto.getRegType();
 		this.tscid = dto.getTscid();
-		this.seqnum = dto.getSeqnum();
+		this.seqnum = preInfo.get("seqnum") == null?null:preInfo.get("seqnum").toString();
 		this.tscdate = DateUtil.formatStringToDate(dto.getTscdate(),DateUtil.FORMAT_DEFAULT);
 		this.daysection = dto.getDaySection();
 		this.whetherded =dto.getWhetherDed();
 		this.whetherset = dto.getWhetherSet();
 		this.hospitalcardno = dto.getHospitalcardNo();
 		this.password = dto.getPassword();
+		this.regid = preInfo.get("regId") == null?null:preInfo.get("regId").toString();
 		this.deptid = dto.getDeptId();
 		this.deptname = preInfo.get("deptName") == null?null:preInfo.get("deptName").toString();
 		this.drid = dto.getDrId();
 		this.drname = preInfo.get("drName") == null?null:preInfo.get("drName").toString();
-		this.regfee = preInfo.get("regFee")==null||"".equals(preInfo.get("regFee"))?new BigDecimal("0.00"):new BigDecimal(preInfo.get("regFee").toString());
-		this.discountsamt = preInfo.get("discountsAmt")==null||"".equals(preInfo.get("discountsAmt"))?new BigDecimal("0.00"):new BigDecimal(preInfo.get("discountsAmt").toString());
-		this.personamt = preInfo.get("personAmt")==null||"".equals(preInfo.get("personAmt"))?new BigDecimal("0.00"):new BigDecimal(preInfo.get("personAmt").toString());
+		this.regfee = preInfo.get("regFee")==null||"".equals(preInfo.get("regFee").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("regFee").toString());
+		this.discountsamt = preInfo.get("discountsAmt")==null||"".equals(preInfo.get("discountsAmt").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("discountsAmt").toString());
+		this.personamt = preInfo.get("personAmt")==null||"".equals(preInfo.get("personAmt").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("personAmt").toString());
 		this.receiptno = preInfo.get("receiptNo") == null?null:preInfo.get("receiptNo").toString();
-		this.accountpayment = preInfo.get("accountPayment")==null||"".equals(preInfo.get("accountPayment"))?new BigDecimal("0.00"):new BigDecimal(preInfo.get("accountPayment").toString());
-		this.accountbalance = preInfo.get("accountBalance")==null||"".equals(preInfo.get("accountBalance"))?new BigDecimal("0.00"):new BigDecimal(preInfo.get("accountBalance").toString());
-		this.treatfee = preInfo.get("treatFee")==null||"".equals(preInfo.get("treatFee"))?new BigDecimal("0.00"):new BigDecimal(preInfo.get("treatFee").toString());
-		this.regamt = preInfo.get("regAmt")==null||"".equals(preInfo.get("regAmt"))?new BigDecimal("0.00"):new BigDecimal(preInfo.get("regAmt").toString());
+		this.accountpayment = preInfo.get("accountPayment")==null||"".equals(preInfo.get("accountPayment").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("accountPayment").toString());
+		this.accountbalance = preInfo.get("accountBalance")==null||"".equals(preInfo.get("accountBalance").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("accountBalance").toString());
+		this.treatfee = preInfo.get("treatFee")==null||"".equals(preInfo.get("treatFee").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("treatFee").toString());
+		this.regamt = preInfo.get("regAmt")==null||"".equals(preInfo.get("regAmt").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("regAmt").toString());
 		this.status = status;
 
 	}
+	public OrderSettlementEntity(){
 
+	}
 
 	/**{@linkplain #orderId}*/
 	public OrderSettlementEntity setOrderId(String orderId) {

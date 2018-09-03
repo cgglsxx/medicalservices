@@ -29,7 +29,9 @@ public class QueryCardForPersonDto implements Serializable {
         this.idcard_no = dto.getIdcard_no();
     }
 
+    public QueryCardForPersonDto(){
 
+    }
     public String getOrgCode() {
         return orgCode;
     }
