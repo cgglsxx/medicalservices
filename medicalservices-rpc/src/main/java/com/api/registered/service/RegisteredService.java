@@ -1,10 +1,7 @@
 package com.api.registered.service;
 
 
-import com.api.dto.register.RegAccountDto;
-import com.api.dto.register.RegInfoDto;
-import com.api.dto.register.RegOrderSaveDto;
-import com.api.dto.register.RegRefundDto;
+import com.api.dto.register.*;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 
@@ -83,4 +80,16 @@ public interface RegisteredService {
      * @return
      */
     ResultBody cancelRegAccount(RegRefundDto dto) throws GlobalErrorInfoException;
+    /**
+     * 门诊已预约、挂号信息查询
+     * @param dto
+     * @return
+     */
+    ResultBody queryClinicQueue(QueryClinicQueueDto dto) throws GlobalErrorInfoException;
+    /**
+     * 病人门诊候诊信息查询
+     * @param dto
+     * @return
+     */
+    ResultBody queryClinicPatientInfo(QueryClinicPatientInfoDto dto) throws GlobalErrorInfoException;
 }

@@ -21,5 +21,7 @@
     <!-- 挂号 -->
     <dubbo:service interface="com.api.registered.service.RegisteredService" ref="registeredService" timeout="10000"/>
 
+    <!-- 门诊缴费 -->
+    <dubbo:service interface="com.api.clinic.service.ClinicService" ref="clinicService" timeout="10000"/>
 
 </beans>

@@ -11,6 +11,7 @@ public class HisSetting {
     private String key;
     private String redisLockCardPre;
     private String redisLockRegAccount;
+    private String redisLockClinicAccount;
 
     public String getUrl() {
         return url;
@@ -34,6 +35,14 @@ public class HisSetting {
 
     public String getRedisLockRegAccount() {
         return redisLockRegAccount;
+    }
+
+    public String getRedisLockClinicAccount() {
+        return redisLockClinicAccount;
+    }
+
+    public void setRedisLockClinicAccount(String redisLockClinicAccount) {
+        this.redisLockClinicAccount = redisLockClinicAccount;
     }
 
     public void setRedisLockRegAccount(String redisLockRegAccount) {

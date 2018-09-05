@@ -152,4 +152,24 @@ public class RegisteredController {
         }
         return registeredService.cancelRegAccount(dto);
     }
+    @ApiOperation(value = "门诊候诊信息查询", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/queryClinicQueue", method = RequestMethod.POST)
+    public ResultBody queryClinicQueue(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid QueryClinicQueueDto dto,
+                                 BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        return registeredService.queryClinicQueue(dto);
+    }
+    @ApiOperation(value = "病人门诊候诊信息查询", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/queryClinicPatientInfo", method = RequestMethod.POST)
+    public ResultBody queryClinicPatientInfo(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid QueryClinicPatientInfoDto dto,
+                                 BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        return registeredService.queryClinicPatientInfo(dto);
+    }
 }

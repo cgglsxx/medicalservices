@@ -30,6 +30,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -96,6 +98,7 @@ public class RegisteredServiceImpl implements RegisteredService {
         return serviceInvoke(param);
     }
     @Override
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody saveLockReg(RegOrderSaveDto dto) throws GlobalErrorInfoException {
         //step1 判断该患者是否绑卡
         QueryCardForPersonDto queryCardForPersonDto = new QueryCardForPersonDto(dto);
@@ -175,6 +178,7 @@ public class RegisteredServiceImpl implements RegisteredService {
         return new ResultBody(result);
     }
     @Override
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody regAccount(RegAccountDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockRegAccount()+dto.getOrderId();
         try {
@@ -306,6 +310,7 @@ public class RegisteredServiceImpl implements RegisteredService {
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody cancelRegAccount(RegRefundDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockRegAccount()+dto.getOrderId();
         try {
@@ -375,6 +380,34 @@ public class RegisteredServiceImpl implements RegisteredService {
             RedissLockUtil.unlock(key);
         }
 
+    }
+
+    @Override
+    public ResultBody queryClinicQueue(QueryClinicQueueDto dto) throws GlobalErrorInfoException {
+        dto.setServiceId("queryClinicQueue");
+        return serviceInvoke(ReflectMapUtil.beanToMap(dto));
+    }
+
+    @Override
+    public ResultBody queryClinicPatientInfo(QueryClinicPatientInfoDto dto) throws GlobalErrorInfoException {
+        //step1 判断该患者是否绑卡
+        QueryCardForPersonDto queryCardForPersonDto = new QueryCardForPersonDto();
+        queryCardForPersonDto.setOrgCode(dto.getOrgCode());
+        queryCardForPersonDto.setIdcard_no(dto.getIdcard_no());
+        queryCardForPersonDto.setChannel(dto.getChannel());
+        queryCardForPersonDto.setOut_platform_id(dto.getOut_platform_id());
+        ResultBody cardBody = cardForPatService.queryCardInfoForPerson(queryCardForPersonDto);
+        if(!cardBody.getCode().equals(GlobalErrorInfoEnum.SUCCESS.getCode())){
+            return cardBody;
+        }
+        //创建card对象
+        Card card = (Card) cardBody.getResult();
+        QueryClinicPatientInfoHisDto queryClinicPatientInfoHisDto = new QueryClinicPatientInfoHisDto();
+        queryClinicPatientInfoHisDto.setCardNo(card.getCardno());
+        queryClinicPatientInfoHisDto.setCardType(card.getType());
+        queryClinicPatientInfoHisDto.setPatId(card.getPatid());
+        ResultBody resultBody = serviceInvoke(ReflectMapUtil.beanToMap(queryClinicPatientInfoHisDto));
+        return resultBody;
     }
 
     private ResultBody serviceInvoke(Map param) throws GlobalErrorInfoException {

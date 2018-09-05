@@ -21,6 +21,9 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +47,7 @@ public class MsgReceiver {
     OrderMapper orderMapper;
     @RabbitListener(queues = {RabbitConfig.PROCESS_CANCELLOCKREG_QUEUE})
     @RabbitHandler
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public void processForCancelReg(Msg msg) throws  GlobalErrorInfoException {
         //step1获取登记信息 判断订单是否支付
         RegistrationDetailEntity registrationDetailEntity = (RegistrationDetailEntity) msg.getObj();
@@ -86,6 +90,7 @@ public class MsgReceiver {
     }
     @RabbitListener(queues = {RabbitConfig.PROCESS_REGPAY_QUEUE})
     @RabbitHandler
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public void processForNoticeHisRegPay(Msg msg)  {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("当前时间: " + sdf.format(new Date()) + " ---> msg：【" + msg + "]");

@@ -5,6 +5,7 @@
 package com.api.registered.domain;
 
 import com.api.card.domain.Card;
+import com.api.dto.clinic.ClinicPreAccountDto;
 import com.api.dto.register.RegOrderSaveDto;
 import com.api.util.DateUtil;
 
@@ -187,6 +188,29 @@ public class OrderSettlementEntity implements Serializable {
 		this.accountbalance = preInfo.get("accountBalance")==null||"".equals(preInfo.get("accountBalance").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("accountBalance").toString());
 		this.treatfee = preInfo.get("treatFee")==null||"".equals(preInfo.get("treatFee").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("treatFee").toString());
 		this.regamt = preInfo.get("regAmt")==null||"".equals(preInfo.get("regAmt").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("regAmt").toString());
+		this.status = status;
+
+	}
+	public OrderSettlementEntity(String orderid, Card card, ClinicPreAccountDto dto, Map preInfo, String status){
+		this.orderId = orderid;
+		this.patid = card.getPatid();
+		this.patName = card.getPat_name();
+		this.idcard = card.getIdcard_no();
+		this.cardtype = card.getType();
+		this.cardno = card.getCardno();
+		this.whetherded =dto.getWhetherDed();
+		this.whetherset = dto.getWhetherSet();
+		this.hospitalcardno = dto.getHospitalcardNo();
+		this.password = dto.getPassword();
+		this.regid = dto.getRegId();
+		this.discountsamt = preInfo.get("discountsAmt")==null||"".equals(preInfo.get("discountsAmt").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("discountsAmt").toString());
+		this.receiptno = preInfo.get("statementNo") == null?null:preInfo.get("statementNo").toString();
+		this.accountpayment = preInfo.get("accountPayment")==null||"".equals(preInfo.get("accountPayment").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("accountPayment").toString());
+		this.accountbalance = preInfo.get("accountBalance")==null||"".equals(preInfo.get("accountBalance").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("accountBalance").toString());
+		this.regamt = preInfo.get("chargeTamt")==null||"".equals(preInfo.get("chargeTamt").toString())?new BigDecimal("0.00"):new BigDecimal(preInfo.get("chargeTamt").toString());
+		this.receiptlist = dto.getReceiptList();
+		this.chargetypelist = dto.getChargeTypeList();
+		this.personamtlist = preInfo.get("personAmtList") == null?null:preInfo.get("personAmtList").toString();
 		this.status = status;
 
 	}
