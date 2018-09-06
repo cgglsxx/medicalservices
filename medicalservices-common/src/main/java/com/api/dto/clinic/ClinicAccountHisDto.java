@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModel;
 /**
  * 门诊缴费结算参数对象
  */
-@ApiModel(value="门诊缴费预算参数对象",description="门诊缴费预算参数对象")
 public class ClinicAccountHisDto extends ParentDto {
     //病人唯一识别码
     @ToMapAnno(name = "patId")

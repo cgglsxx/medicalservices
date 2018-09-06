@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 门诊缴费预算参数对象
  */
-@ApiModel(value="门诊缴费预算参数对象",description="门诊缴费预算参数对象")
 public class ClinicPreAccountHisDto extends ParentDto {
     //病人唯一识别码
     @ToMapAnno(name = "patId")

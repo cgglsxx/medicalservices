@@ -16,7 +16,6 @@ import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 import com.api.result.messageenum.ClinicErrorInfoEnum;
 import com.api.result.messageenum.GlobalErrorInfoEnum;
-import com.api.result.messageenum.RegisteredErrorInfoEnum;
 import com.api.setting.HisSetting;
 import com.api.util.RedissLockUtil;
 import com.api.util.ReflectMapUtil;
