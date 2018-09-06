@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.article.dao.ArticleCategoryMapper">
+
+	<resultMap id="BaseResultMap" type="com.api.article.domain.ArticleCategoryEntity">
+		<id column="CATE_ID" property="cateId" />
+		<result column="CATE_NAME" property="cateName" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="STATUS" property="status" />
+		<result column="SORT_ORDER" property="sortOrder" />
+		<result column="CATE_TYPE" property="cateType" />
+	</resultMap>
+
+	<sql id="table-name">yw_article_category</sql>
+
+	<sql id="all-column">CATE_ID ,CATE_NAME ,PARENT_ID ,STATUS ,SORT_ORDER ,CATE_TYPE	</sql>
+
+	<sql id="all-query-condition">
+		<if test="cateId != null">
+	      and CATE_ID = #{cateId}
+    </if>
+	   <if test="cateName != null and cateName != ''">
+	      and CATE_NAME = #{cateName}
+    </if>
+	   <if test="parentId != null and parentId != ''">
+	      and PARENT_ID = #{parentId}
+    </if>
+		<if test="status != null">
+	      and STATUS = #{status}
+    </if>
+		<if test="sortOrder != null">
+	      and SORT_ORDER = #{sortOrder}
+    </if>
+		<if test="cateType != null">
+	      and CATE_TYPE = #{cateType}
+    </if>
+	</sql>
+	
+
+	
+	<!-- Query limit one -->
+	<select id="queryLimitOne" resultMap="BaseResultMap" parameterType="com.api.article.domain.ArticleCategoryEntity">
+		select <include refid="all-column" /> from <include refid="table-name"/> 
+		where 1=1   <include refid="all-query-condition"/>
+        limit 1
+	</select>
+	
+	<!-- Query By Cond -->
+	<select id="queryByCond" resultMap="BaseResultMap" parameterType="com.api.article.domain.ArticleCategoryEntity">
+		select <include refid="all-column" /> from <include refid="table-name"/> 
+		where 1=1 <include refid="all-query-condition"/> 
+	</select>
+
+	
+</mapper>

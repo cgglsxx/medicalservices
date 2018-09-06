@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.article.dao.ArticleMapper">
+
+	<resultMap id="BaseResultMap" type="com.api.article.domain.ArticleEntity">
+		<id column="ARTICLE_ID" property="articleId" />
+		<result column="CATE_ID" property="cateId" />
+		<result column="TITLE" property="title" />
+		<result column="KEYWORDS" property="keywords" />
+		<result column="FROMTO" property="fromto" />
+		<result column="LINK" property="link" />
+		<result column="ABSTRACT" property="abs" />
+		<result column="CONTENT" property="content" />
+		<result column="SORT_ORDER" property="sortOrder" />
+		<result column="STATUS" property="status" />
+		<result column="COUNT" property="count" />
+		<result column="PUBLISH_TIME" property="publishTime" />
+		<result column="ADD_TIME" property="addTime" />
+		<result column="ADD_USERNAME" property="addUsername" />
+		<result column="ARTICLE_TOP" property="articleTop" />
+		<result column="FILE_URL" property="fileUrl" />
+	</resultMap>
+
+	<sql id="table-name">yw_article</sql>
+
+	<sql id="all-column">ARTICLE_ID ,CATE_ID ,TITLE ,KEYWORDS ,FROMTO ,LINK ,ABSTRACT ,CONTENT ,SORT_ORDER ,COUNT , PUBLISH_TIME,ADD_TIME ,ADD_USERNAME ,ARTICLE_TOP ,FILE_URL	</sql>
+	<sql id="all-column-without-content">ARTICLE_ID ,CATE_ID ,TITLE ,KEYWORDS ,FROMTO ,LINK ,ABSTRACT  ,SORT_ORDER  ,COUNT ,PUBLISH_TIME,ADD_TIME,ADD_USERNAME ,ARTICLE_TOP ,FILE_URL	</sql>
+	<sql id="all-query-condition">
+		<if test="articleId != null">
+	      and ARTICLE_ID = #{articleId}
+    </if>
+		<if test="cateId != null">
+	      and CATE_ID = #{cateId}
+    </if>
+	   <if test="title != null and title != ''">
+		   <![CDATA[   and INSTR(TITLE, #{title}) = 1       	 ]]>
+    </if>
+	   <if test="keywords != null and keywords != ''">
+		   <![CDATA[	and INSTR(KEYWORDS, #{keywords})  > 0        ]]>
+    </if>
+	   <if test="fromto != null and fromto != ''">
+	      and FROMTO = #{fromto}
+    </if>
+	   <if test="link != null and link != ''">
+	      and LINK = #{link}
+    </if>
+	   <if test="abs != null and abs != ''">
+	      and ABSTRACT = #{abs}
+    </if>
+	   <if test="content != null and content != ''">
+	      and CONTENT = #{content}
+    </if>
+		<if test="sortOrder != null">
+	      and SORT_ORDER = #{sortOrder}
+    </if>
+		<if test="status != null">
+	      and STATUS = #{status}
+    </if>
+		<if test="count != null">
+	      and COUNT = #{count}
+    </if>
+		<if test="publishTime != null">
+	      and PUBLISH_TIME = #{publishTime}
+    </if>
+		<if test="addTime != null">
+	      and ADD_TIME = #{addTime}
+    </if>
+	   <if test="addUsername != null and addUsername != ''">
+	      and ADD_USERNAME = #{addUsername}
+    </if>
+		<if test="articleTop != null">
+	      and ARTICLE_TOP = #{articleTop}
+    </if>
+	   <if test="fileUrl != null and fileUrl != ''">
+	      and FILE_URL = #{fileUrl}
+    </if>
+	</sql>
+	
+
+	
+	<!-- Query limit one -->
+	<select id="queryLimitOne" resultMap="BaseResultMap" parameterType="com.api.article.domain.ArticleEntity">
+		select <include refid="all-column" /> from <include refid="table-name"/> 
+		where 1=1   <include refid="all-query-condition"/>
+        limit 1
+	</select>
+	
+	<!-- Query By Cond -->
+	<select id="queryByCond" resultMap="BaseResultMap" parameterType="com.api.article.domain.ArticleEntity">
+		select <include refid="all-column-without-content" /> from <include refid="table-name"/>
+		where 1=1 <include refid="all-query-condition"/> 
+	</select>
+
+	
+</mapper>

@@ -27,4 +27,7 @@
     <!-- 住院服务 -->
     <dubbo:service interface="com.api.inpatient.service.InPatientService" ref="inPatientService" timeout="10000"/>
 
+    <!-- 医疗咨讯 -->
+    <dubbo:service interface="com.api.article.service.ArticleService" ref="articleService" timeout="10000"/>
+
 </beans>
