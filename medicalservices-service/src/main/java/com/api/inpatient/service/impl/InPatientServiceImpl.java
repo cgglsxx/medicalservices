@@ -5,7 +5,7 @@ import com.api.card.domain.Card;
 import com.api.card.service.CardForPatService;
 import com.api.dto.card.QueryCardForPersonDto;
 import com.api.dto.inpatient.*;
-import com.api.inpatient.InPatientService;
+import com.api.inpatient.service.InPatientService;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 import com.api.result.messageenum.GlobalErrorInfoEnum;

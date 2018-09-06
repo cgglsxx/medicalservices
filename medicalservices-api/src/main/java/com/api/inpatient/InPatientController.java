@@ -6,6 +6,7 @@ import com.api.dto.inpatient.InpatientCostQueryDto;
 import com.api.dto.inpatient.InpatientInfoQueryDto;
 import com.api.dto.inpatient.InpatientPrePaymentQueryDto;
 import com.api.dto.inpatient.InpatientRecordsQueryDto;
+import com.api.inpatient.service.InPatientService;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 import com.api.result.messageenum.RegisteredErrorInfoEnum;

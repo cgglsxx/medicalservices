@@ -1,4 +1,4 @@
-package com.api.inpatient;
+package com.api.inpatient.service;
 
 
 import com.api.dto.inpatient.InpatientCostQueryDto;

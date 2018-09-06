@@ -24,4 +24,7 @@
     <!-- 门诊缴费 -->
     <dubbo:service interface="com.api.clinic.service.ClinicService" ref="clinicService" timeout="10000"/>
 
+    <!-- 住院服务 -->
+    <dubbo:service interface="com.api.inpatient.service.InPatientService" ref="inPatientService" timeout="10000"/>
+
 </beans>
