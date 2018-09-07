@@ -35,10 +35,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -306,6 +303,72 @@ public class RegisteredServiceImpl implements RegisteredService {
         regInfoHisDto.setCardType(card.getType());
         regInfoHisDto.setPatId(card.getPatid());
         ResultBody resultBody = serviceInvoke(ReflectMapUtil.beanToMap(regInfoHisDto));
+        if(!IConst.HIS_SUCCESS.equals(resultBody.getCode())){
+            //表示未查询到预约，挂号记录
+            return new ResultBody(RegisteredErrorInfoEnum.REG_NODATA_ERROR);
+        }
+        //step 2 根据条件查询挂号预算记录
+        OrderSettlementEntity orderSettlementEntity = new OrderSettlementEntity();
+        orderSettlementEntity.setStatus("1");//表示预算
+        if("0".equals(dto.getIsReg())){
+            //表示预约
+            orderSettlementEntity.setPreregflag("1");
+        }else if("1".equals(dto.getIsReg())){
+            //表示挂号
+            orderSettlementEntity.setPreregflag("2");
+        }
+        orderSettlementEntity.setPatid(card.getPatid());
+        orderSettlementEntity.setCardno(card.getCardno());
+        orderSettlementEntity.setCardtype(card.getType());
+        orderSettlementEntity.setIdcard(card.getIdcard_no());
+        //开始日期
+        Date startingDate = DateUtil.formatStringToDate(dto.getStartingDate(),DateUtil.FORMAT_DEFAULT);
+        orderSettlementEntity.setTscdate(startingDate);
+        List<OrderSettlementEntity> orderSettlementEntityList = orderSettlementMapper.queryByCond(orderSettlementEntity);
+        //如果同一时间段内his查询出挂号记录 本地没有 则数据匹配异常
+        if(orderSettlementEntityList.size() < 1){
+            return new ResultBody(RegisteredErrorInfoEnum.REG_DATA_ERROR);
+        }
+        //step3 对比拼接数据
+        Object regsobj = resultBody.getResult();
+        Map regMap = null;
+        List regList = null;
+        if(regsobj instanceof Map){
+            regMap = (Map) regsobj;
+            for(Object obj:orderSettlementEntityList){
+                OrderSettlementEntity orderSettlementEntityobj = (OrderSettlementEntity) obj;
+                if(orderSettlementEntityobj.getReceiptno()!=null
+                        &&regMap.get("regId")!=null
+                        &&orderSettlementEntityobj.getReceiptno().equals(regMap.get("regId").toString())){
+                    regMap.put("orderId",orderSettlementEntityobj.getOrderId());
+                    regMap.put("personAmt",orderSettlementEntityobj.getPersonamt());//个人自付金额
+                    regMap.put("discountsAmt",orderSettlementEntityobj.getDiscountsamt());//医院优惠金额
+                    regMap.put("tradebalance",orderSettlementEntityobj.getRegamt());//订单总金额
+                    regMap.put("pat_name",orderSettlementEntityobj.getPatName());//患者名
+                    break;
+                }
+            }
+            resultBody.setResult(regMap);
+        }else{
+            regList = (List)regsobj;
+            for (Object obj: regList){
+                Map regobj = (Map) obj;
+                for(Object orderobj:orderSettlementEntityList){
+                    OrderSettlementEntity orderSettlementEntityobj = (OrderSettlementEntity) orderobj;
+                    if(orderSettlementEntityobj.getReceiptno()!=null
+                            &&regobj.get("regId")!=null
+                            &&orderSettlementEntityobj.getReceiptno().equals(regobj.get("regId").toString())){
+                        regobj.put("orderId",orderSettlementEntityobj.getOrderId());
+                        regobj.put("personAmt",orderSettlementEntityobj.getPersonamt());//个人自付金额
+                        regobj.put("discountsAmt",orderSettlementEntityobj.getDiscountsamt());//医院优惠金额
+                        regobj.put("tradebalance",orderSettlementEntityobj.getRegamt());//订单总金额
+                        regobj.put("pat_name",orderSettlementEntityobj.getPatName());//患者名
+                        break;
+                    }
+                }
+            }
+            resultBody.setResult(regList);
+        }
         return resultBody;
     }
 

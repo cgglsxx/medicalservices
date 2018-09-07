@@ -85,8 +85,8 @@
 	      and SEQNUM = #{seqnum}
     </if>
 		<if test="tscdate != null">
-	      and TSCDATE = #{tscdate}
-    </if>
+			<![CDATA[ and date_format(TSCDATE, '%Y-%m-%d') >= #{tscdate} and	date_format(TSCDATE, '%Y-%m-%d') <= date_format(now(), '%Y-%m-%d') ]]>
+		</if>
 		<if test="daysection != null">
 	      and DAYSECTION = #{daysection}
     </if>

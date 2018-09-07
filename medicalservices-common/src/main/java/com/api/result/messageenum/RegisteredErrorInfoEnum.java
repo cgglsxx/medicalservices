@@ -18,7 +18,9 @@ public enum RegisteredErrorInfoEnum implements ErrorInfoInterface {
     REG_PAYRECORD_COUNTERROR("8","该订单his已结算"),
     REG_PAYRECORD_DATAERROR("9","该订单数据异常,请联系管理员"),
     REG_ORDER_NODATA("10","未查询到订单相关信息"),
-    REG_ORDER_CANCELERROR("11","HIS取消结算失败");
+    REG_ORDER_CANCELERROR("11","HIS取消结算失败"),
+    REG_NODATA_ERROR("12","未查询到挂号相关记录"),
+    REG_DATA_ERROR("13","挂号数据缺失");
 
     private String code;
 

@@ -29,7 +29,7 @@ public class HttpUtil {
     public static String doPost(String url, String params) throws Exception {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(2000).build();//设置请求和传输超时时间
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();//设置请求和传输超时时间
         HttpPost httpPost = new HttpPost(url);// 创建httpPost
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-Type", "application/json");
