@@ -20,9 +20,9 @@ public class Card extends CardKey implements Serializable {
 
     private String relationship;
 
-    private Date bindTime;
+    private String bindTime;
 
-    private Date lastUpdatetime;
+    private String lastUpdatetime;
 
     public String getPatid() {
         return patid;
@@ -88,19 +88,19 @@ public class Card extends CardKey implements Serializable {
         this.relationship = relationship == null ? null : relationship.trim();
     }
 
-    public Date getBindTime() {
+    public String getBindTime() {
         return bindTime;
     }
 
-    public void setBindTime(Date bindTime) {
+    public void setBindTime(String bindTime) {
         this.bindTime = bindTime;
     }
 
-    public Date getLastUpdatetime() {
+    public String getLastUpdatetime() {
         return lastUpdatetime;
     }
 
-    public void setLastUpdatetime(Date lastUpdatetime) {
+    public void setLastUpdatetime(String lastUpdatetime) {
         this.lastUpdatetime = lastUpdatetime;
     }
 }
