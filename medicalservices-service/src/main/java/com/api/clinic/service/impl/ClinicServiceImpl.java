@@ -17,6 +17,7 @@ import com.api.result.ResultBody;
 import com.api.result.messageenum.ClinicErrorInfoEnum;
 import com.api.result.messageenum.GlobalErrorInfoEnum;
 import com.api.setting.HisSetting;
+import com.api.util.DateUtil;
 import com.api.util.RedissLockUtil;
 import com.api.util.ReflectMapUtil;
 import org.slf4j.Logger;
@@ -28,10 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -156,6 +154,7 @@ public class ClinicServiceImpl implements ClinicService {
         result.put("personAmt",personAmt);//个人自付金额
         result.put("discountsAmt",orderSettlementEntity.getDiscountsamt());//医院优惠金额
         result.put("tradebalance",orderSettlementEntity.getRegamt());//订单总金额
+        result.put("time",DateUtil.formatDateToString(new Date(),DateUtil.FORMAT_FULL));//订单时间
         return new ResultBody(result);
     }
 
