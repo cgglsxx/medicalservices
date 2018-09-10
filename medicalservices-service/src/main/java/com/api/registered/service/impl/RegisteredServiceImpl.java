@@ -346,6 +346,7 @@ public class RegisteredServiceImpl implements RegisteredService {
                     regMap.put("discountsAmt",orderSettlementEntityobj.getDiscountsamt());//医院优惠金额
                     regMap.put("tradebalance",orderSettlementEntityobj.getRegamt());//订单总金额
                     regMap.put("pat_name",orderSettlementEntityobj.getPatName());//患者名
+                    regMap.put("idcard",orderSettlementEntityobj.getIdcard());//身份证
                     break;
                 }
             }
@@ -364,6 +365,7 @@ public class RegisteredServiceImpl implements RegisteredService {
                         regobj.put("discountsAmt",orderSettlementEntityobj.getDiscountsamt());//医院优惠金额
                         regobj.put("tradebalance",orderSettlementEntityobj.getRegamt());//订单总金额
                         regobj.put("pat_name",orderSettlementEntityobj.getPatName());//患者名
+                        regobj.put("idcard",orderSettlementEntityobj.getIdcard());//身份证
                         break;
                     }
                 }
