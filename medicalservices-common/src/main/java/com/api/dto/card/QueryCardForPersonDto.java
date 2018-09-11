@@ -16,6 +16,7 @@ public class QueryCardForPersonDto implements Serializable {
     //渠道
     @NotEmpty(message = "渠道不能为空")
     private String channel;
+    //机构编号
     @NotEmpty(message = "机构编号不能为空")
     private String orgCode;
     //身份证号

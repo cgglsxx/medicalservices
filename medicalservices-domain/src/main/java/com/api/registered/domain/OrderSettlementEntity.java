@@ -6,6 +6,7 @@ package com.api.registered.domain;
 
 import com.api.card.domain.Card;
 import com.api.dto.clinic.ClinicPreAccountDto;
+import com.api.dto.inpatient.InpatientPrePaymentOrderDto;
 import com.api.dto.register.RegOrderSaveDto;
 import com.api.util.DateUtil;
 
@@ -211,6 +212,20 @@ public class OrderSettlementEntity implements Serializable {
 		this.receiptlist = dto.getReceiptList();
 		this.chargetypelist = dto.getChargeTypeList();
 		this.personamtlist = preInfo.get("personAmtList") == null?null:preInfo.get("personAmtList").toString();
+		this.status = status;
+
+	}
+	public OrderSettlementEntity(String orderid, Card card, InpatientPrePaymentOrderDto dto,String status){
+		this.orderId = orderid;
+		this.patid = card.getPatid();
+		this.patName = card.getPat_name();
+		this.idcard = card.getIdcard_no();
+		this.cardtype = card.getType();
+		this.cardno = card.getCardno();
+		this.receiptno = dto.getInterid();
+		this.personamt = new BigDecimal(dto.getPreAmt());
+		this.regamt = new BigDecimal(dto.getPreAmt());
+		this.discountsamt = new BigDecimal("0.00");
 		this.status = status;
 
 	}

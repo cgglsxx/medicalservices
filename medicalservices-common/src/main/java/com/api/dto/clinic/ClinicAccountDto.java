@@ -33,15 +33,19 @@ public class ClinicAccountDto extends ParentDto {
     private String payMoney;
     //支付方式
     @ApiModelProperty(name="payway",value="支付方式(0-无第三方支付（即个人支付金额为0），1-支付宝，2-微信支付，3-银联卡支付，4-院内支付)",example="2",required = true)
+    @NotEmpty(message = "支付方式不能为空")
     private String payway;
     //支付类型
     @ApiModelProperty(name="payType",value="支付类型(1 线上支付 2 当面付)",example="1",required = true)
+    @NotEmpty(message = "支付类型不能为空")
     private String payType;
     //支付渠道
     @ApiModelProperty(name="payChannel",value="支付渠道（参照appCode）",example="1",required = true)
+    @NotEmpty(message = "支付渠道不能为空")
     private String payChannel;
     //支付流水号
     @ApiModelProperty(name="payTradeno",value="支付流水号",example="1322900000",required = true)
+    @NotEmpty(message = "支付流水号不能为空")
     private String payTradeno;
 
     public String getOut_platform_id() {

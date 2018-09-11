@@ -6,6 +6,7 @@ package com.api.registered.domain;
 
 import com.api.card.domain.Card;
 import com.api.dto.clinic.ClinicPreAccountDto;
+import com.api.dto.inpatient.InpatientPrePaymentOrderDto;
 import com.api.dto.register.RegOrderSaveDto;
 
 import java.io.Serializable;
@@ -111,6 +112,20 @@ public class OrderEntity implements Serializable {
 	public OrderEntity(String orderid, Card card, ClinicPreAccountDto dto, Map preInfo){
 		this.orderId = orderid;
 		this.tradeBalance = preInfo.get("chargeTamt")==null?new BigDecimal("0.00"):new BigDecimal(preInfo.get("chargeTamt").toString());
+		this.payAccount = dto.getOut_platform_id();
+		this.receiveAccount = dto.getOrgCode();
+		this.status = "1";
+		this.agencyNum = dto.getOrgCode();
+		this.agencyName = dto.getHospital();
+		this.patid = card.getPatid();
+		this.patName = card.getPat_name();
+		this.idcard = card.getIdcard_no();
+		this.cardno = card.getCardno();
+		this.paychannel = dto.getChannel();
+	}
+	public OrderEntity(String orderid, Card card, InpatientPrePaymentOrderDto dto){
+		this.orderId = orderid;
+		this.tradeBalance = new BigDecimal(dto.getPreAmt());
 		this.payAccount = dto.getOut_platform_id();
 		this.receiveAccount = dto.getOrgCode();
 		this.status = "1";

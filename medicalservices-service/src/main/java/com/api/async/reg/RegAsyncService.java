@@ -1,6 +1,7 @@
 package com.api.async.reg;
 
 import com.api.dto.clinic.ClinicAccountDto;
+import com.api.dto.inpatient.InpatientPrePaymentDto;
 import com.api.dto.register.RegAccountDto;
 import com.api.registered.dao.OrderMapper;
 import com.api.registered.domain.OrderEntity;
@@ -39,6 +40,18 @@ public class RegAsyncService {
     }
     @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public Future<ResultBody> updateClinicOrderPay(ClinicAccountDto dto) {
+        ResultBody result = new ResultBody();
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderId(dto.getOrderId());
+        orderEntity.setPayResult("02");
+        orderEntity.setPayway(dto.getPayway());
+        orderEntity.setPayType(dto.getPayType());
+        orderEntity.setPaytradeno(dto.getPayTradeno());
+        orderMapper.updateOrderByOrderId(orderEntity);
+        return new AsyncResult<>(result);
+    }
+    @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public Future<ResultBody> updateInpatientOrderPay(InpatientPrePaymentDto dto) {
         ResultBody result = new ResultBody();
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setOrderId(dto.getOrderId());

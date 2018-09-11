@@ -1,10 +1,7 @@
 package com.api.inpatient.service;
 
 
-import com.api.dto.inpatient.InpatientCostQueryDto;
-import com.api.dto.inpatient.InpatientInfoQueryDto;
-import com.api.dto.inpatient.InpatientPrePaymentQueryDto;
-import com.api.dto.inpatient.InpatientRecordsQueryDto;
+import com.api.dto.inpatient.*;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 
@@ -38,5 +35,17 @@ public interface InPatientService {
      * @return
      */
     ResultBody inpHistoryRecord(InpatientRecordsQueryDto dto) throws GlobalErrorInfoException;
+    /**
+     * 住院预交金订单
+     * @param dto
+     * @return
+     */
+    ResultBody createPrePayment(InpatientPrePaymentOrderDto dto) throws GlobalErrorInfoException;
+    /**
+     * 住院预交金缴纳
+     * @param dto
+     * @return
+     */
+    ResultBody inpPrePayment(InpatientPrePaymentDto dto) throws GlobalErrorInfoException;
 
 }

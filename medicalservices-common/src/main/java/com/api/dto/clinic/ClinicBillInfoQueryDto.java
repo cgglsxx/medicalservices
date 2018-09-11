@@ -26,13 +26,15 @@ public class ClinicBillInfoQueryDto extends ParentDto {
     private String idcard_no;
     //查询类别
     @ApiModelProperty(name="queryType",value="查询类别(1-未缴费，2-已缴费，3-全部)",example="1",required =true)
-    @NotEmpty(message = "queryType")
+    @NotEmpty(message = "查询类别不能为空")
     private String queryType;
     //开始日期
     @ApiModelProperty(name="startingDate",value="开始日期(yyyy-MM-dd)",example="2018-08-23",required =true)
+    @NotEmpty(message = "开始日期不能为空")
     private String startingDate;
     //结束日期
     @ApiModelProperty(name="closingDate",value="结束日期(yyyy-MM-dd)",example="2018-08-23",required =true)
+    @NotEmpty(message = "结束日期不能为空")
     private String closingDate;
 
     public String getOut_platform_id() {

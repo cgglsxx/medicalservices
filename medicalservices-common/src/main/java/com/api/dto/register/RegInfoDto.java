@@ -33,6 +33,7 @@ public class RegInfoDto extends ParentDto {
     private String closingDate;
     //预约或挂号
     @ApiModelProperty(name="isReg",value="预约或挂号(0 预约 1挂号)",example="1",required = true)
+    @NotEmpty(message = "预约或挂号标识不能为空")
     private String isReg;
 
     public String getOut_platform_id() {

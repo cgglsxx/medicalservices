@@ -2,10 +2,7 @@ package com.api.inpatient;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.dto.inpatient.InpatientCostQueryDto;
-import com.api.dto.inpatient.InpatientInfoQueryDto;
-import com.api.dto.inpatient.InpatientPrePaymentQueryDto;
-import com.api.dto.inpatient.InpatientRecordsQueryDto;
+import com.api.dto.inpatient.*;
 import com.api.inpatient.service.InPatientService;
 import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
@@ -72,7 +69,28 @@ public class InPatientController {
         //调用服务
         return inPatientService.inpHistoryRecord(dto);
     }
-
+    @ApiOperation(value = "生成住院预交金订单", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/inpatient/createPrePayment", method = RequestMethod.POST)
+    public ResultBody createPrePayment(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid InpatientPrePaymentOrderDto dto,
+                                       BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        //调用服务
+        return inPatientService.createPrePayment(dto);
+    }
+    @ApiOperation(value = "住院预交金缴纳", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/inpatient/inpPrePayment", method = RequestMethod.POST)
+    public ResultBody inpPrePayment(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid InpatientPrePaymentDto dto,
+                                       BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+        //调用服务
+        return inPatientService.inpPrePayment(dto);
+    }
 
 
 }
