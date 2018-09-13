@@ -33,7 +33,6 @@ public class ClinicPreAccountDto extends ParentDto {
     private String receiptList;
     //费用类型列表
     @ApiModelProperty(name="chargeTypeList",value="费用类型列表（多个类别用“|”分隔，与单据列表对应 (根据HIS情况可以传空)）",example="123422|23334")
-    @NotEmpty(message = "费用类型列表不能为空")
     private String chargeTypeList;
     //自付金额列表
     @ApiModelProperty(name="personAmtList",value="自付金额列表（多个类别用“|”分隔，与单据列表对应，患者应该自己承担的费用（=总金额-优惠金额-医保支付））",example="123422|23334",required =true)
@@ -41,7 +40,6 @@ public class ClinicPreAccountDto extends ParentDto {
     private String personAmtList;
     //收费窗口代码
     @ApiModelProperty(name="tollwindowNo",value="收费窗口代码",example="123")
-    @NotEmpty(message = "收费窗口代码不能为空")
     private String tollwindowNo;
     //是否扣院内账户
     @ApiModelProperty(name="whetherDed",value="是否扣院内账户(0-不从院内账户走，1-走院内账户)",example="0",required = true)

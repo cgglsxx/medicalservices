@@ -28,7 +28,7 @@ public class InpatientPrePaymentDto extends ParentDto {
     @NotEmpty(message = "支付金额不能为空")
     private String preAmt;
     //支付者姓名
-    @ApiModelProperty(name="payerName",value="支付者姓名",example="肖**")
+    @ApiModelProperty(name="payerName",value="支付者姓名",example="肖**",required = true)
     @NotEmpty(message = "支付者姓名不能为空")
     private String payerName;
     //订单编号

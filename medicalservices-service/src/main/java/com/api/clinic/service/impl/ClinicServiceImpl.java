@@ -135,10 +135,10 @@ public class ClinicServiceImpl implements ClinicService {
         OrderSettlementEntity orderSettlementEntity = new OrderSettlementEntity(orderid,card,dto,preClinicInfo,"1");
         String personAmtList = preClinicInfo.get("personAmtList")==null?"0.00":preClinicInfo.get("personAmtList").toString();
         //计算自付总金额
-        String[] personAmtListarr = personAmtList.split("|");
+        String[] personAmtListarr = personAmtList.split("\\|");
         BigDecimal personAmt = new BigDecimal("0.00");
         for(int i=0,j=personAmtListarr.length;i<j;i++){
-            personAmt.add(new BigDecimal(personAmtListarr[i]));
+            personAmt = personAmt.add(new BigDecimal(personAmtListarr[i]));
         }
         orderSettlementEntity.setPersonamt(personAmt);
         orderSettlementMapper.insertSelective(orderSettlementEntity);
