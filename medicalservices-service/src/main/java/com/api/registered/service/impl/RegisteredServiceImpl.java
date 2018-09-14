@@ -275,6 +275,11 @@ public class RegisteredServiceImpl implements RegisteredService {
             orderEntity.setOrderId(dto.getOrderId());
             orderEntity.setHisResult(his_account_flag);
             orderMapper.updateOrderByOrderId(orderEntity);
+            //step 5 更改预约登记为成功
+            RegistrationDetailEntity registrationDetailEntity = new RegistrationDetailEntity();
+            registrationDetailEntity.setOrderId(dto.getOrderId());
+            registrationDetailEntity.setStatus("3");//表示预约登记完成且结算成功
+            registrationDetailMapper.updateRegistrationDetailByOrderId(registrationDetailEntity);
             return new ResultBody();
         }catch (Exception e){
             logger.error(e.toString());
