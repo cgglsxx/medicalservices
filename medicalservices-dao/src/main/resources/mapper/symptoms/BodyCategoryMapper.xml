@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.api.article.dao.ArticleCategoryMapper">
+<mapper namespace="com.api.symptoms.dao.BodyCategoryMapper">
 
-	<resultMap id="BaseResultMap" type="com.api.article.domain.ArticleCategoryEntity">
+	<resultMap id="BaseResultMap" type="map">
 		<id column="CATE_ID" property="cateId" />
 		<result column="CATE_NAME" property="cateName" />
 		<result column="PARENT_ID" property="parentId" />
@@ -11,7 +11,7 @@
 		<result column="CATE_TYPE" property="cateType" />
 	</resultMap>
 
-	<sql id="table-name">yw_article_category</sql>
+	<sql id="table-name">yw_body_category</sql>
 
 	<sql id="all-column">CATE_ID ,CATE_NAME ,PARENT_ID ,STATUS ,SORT_ORDER ,CATE_TYPE	</sql>
 
@@ -34,23 +34,25 @@
 		<if test="cateType != null">
 	      and CATE_TYPE = #{cateType}
     </if>
-		order by SORT_ORDER asc
+		order by sort_order desc
 	</sql>
+	
 	
 
 	
 	<!-- Query limit one -->
-	<select id="queryLimitOne" resultMap="BaseResultMap" parameterType="com.api.article.domain.ArticleCategoryEntity">
+	<select id="queryLimitOne" resultMap="BaseResultMap" parameterType="com.api.symptoms.domain.BodyCategoryEntity">
 		select <include refid="all-column" /> from <include refid="table-name"/> 
 		where 1=1   <include refid="all-query-condition"/>
         limit 1
 	</select>
 	
 	<!-- Query By Cond -->
-	<select id="queryByCond" resultMap="BaseResultMap" parameterType="com.api.article.domain.ArticleCategoryEntity">
+	<select id="queryByCond" resultMap="BaseResultMap" parameterType="com.api.symptoms.domain.BodyCategoryEntity">
 		select <include refid="all-column" /> from <include refid="table-name"/> 
 		where 1=1 <include refid="all-query-condition"/> 
 	</select>
+	
 
 	
 </mapper>

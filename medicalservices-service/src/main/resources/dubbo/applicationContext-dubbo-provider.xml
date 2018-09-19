@@ -29,5 +29,7 @@
 
     <!-- 医疗咨讯 -->
     <dubbo:service interface="com.api.article.service.ArticleService" ref="articleService" timeout="10000"/>
+    <!-- 智能导诊 -->
+    <dubbo:service interface="com.api.symptoms.service.SymptomsService" ref="symptomsService" timeout="10000"/>
 
 </beans>

@@ -9,7 +9,7 @@ import com.api.result.ResultBody;
 
 
 /**
- * 就诊卡建档模块模块service
+ * 医疗咨询service
  */
 public interface ArticleService {
 

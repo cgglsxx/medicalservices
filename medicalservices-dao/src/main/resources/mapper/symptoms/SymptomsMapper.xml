@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.symptoms.dao.SymptomsMapper">
+
+	<resultMap id="BaseResultMap" type="com.api.symptoms.domain.SymptomsEntity">
+		<id column="SYMPTOMS_ID" property="symptomsId" />
+		<result column="CATE_ID" property="cateId" />
+		<result column="TITLE" property="title" />
+		<result column="INTRODUCTION" property="introduction" />
+		<result column="TREATMENT" property="treatment" />
+		<result column="DIAGNOSIS" property="diagnosis" />
+		<result column="CAUSE" property="cause" />
+		<result column="RECOMMEND_DEPTID" property="recommendDeptid" />
+		<result column="RECOMMEND_DEPT" property="recommendDept" />
+		<result column="SORT_ORDER" property="sortOrder" />
+		<result column="STATUS" property="status" />
+		<result column="PUBLISH_TIME" property="publishTime" />
+		<result column="ADD_TIME" property="addTime" />
+		<result column="ADD_USERNAME" property="addUsername" />
+	</resultMap>
+
+	<sql id="table-name">yw_symptoms</sql>
+
+	<sql id="all-column">SYMPTOMS_ID ,CATE_ID ,TITLE ,INTRODUCTION ,TREATMENT ,DIAGNOSIS ,CAUSE ,RECOMMEND_DEPTID ,RECOMMEND_DEPT ,SORT_ORDER ,STATUS ,PUBLISH_TIME ,ADD_TIME ,ADD_USERNAME	</sql>
+	<sql id="all-column-without">SYMPTOMS_ID ,CATE_ID ,TITLE ,RECOMMEND_DEPTID ,RECOMMEND_DEPT ,SORT_ORDER ,STATUS ,PUBLISH_TIME ,ADD_TIME ,ADD_USERNAME	</sql>
+
+	<sql id="all-query-condition">
+		<if test="symptomsId != null">
+	      and SYMPTOMS_ID = #{symptomsId}
+    </if>
+	   <if test="cateId != null and cateId != ''">
+	      and CATE_ID = #{cateId}
+    </if>
+	   <if test="title != null and title != ''">
+		   <![CDATA[   and INSTR(TITLE, #{title}) = 0       	 ]]>
+    </if>
+	   <if test="introduction != null and introduction != ''">
+	      and INTRODUCTION = #{introduction}
+    </if>
+	   <if test="treatment != null and treatment != ''">
+	      and TREATMENT = #{treatment}
+    </if>
+	   <if test="diagnosis != null and diagnosis != ''">
+	      and DIAGNOSIS = #{diagnosis}
+    </if>
+	   <if test="cause != null and cause != ''">
+	      and CAUSE = #{cause}
+    </if>
+	   <if test="recommendDeptid != null and recommendDeptid != ''">
+	      and RECOMMEND_DEPTID = #{recommendDeptid}
+    </if>
+	   <if test="recommendDept != null and recommendDept != ''">
+	      and RECOMMEND_DEPT = #{recommendDept}
+    </if>
+	   <if test="sortOrder != null and sortOrder != ''">
+	      and SORT_ORDER = #{sortOrder}
+    </if>
+	   <if test="status != null and status != ''">
+	      and STATUS = #{status}
+    </if>
+		<if test="publishTime != null">
+	      and PUBLISH_TIME = #{publishTime}
+    </if>
+		<if test="addTime != null">
+	      and ADD_TIME = #{addTime}
+    </if>
+	   <if test="addUsername != null and addUsername != ''">
+	      and ADD_USERNAME = #{addUsername}
+    </if>
+		order by sort_order desc
+	</sql>
+	
+	
+
+
+
+	
+	<!-- Query limit one -->
+	<select id="queryLimitOne" resultMap="BaseResultMap" parameterType="com.api.symptoms.domain.SymptomsEntity">
+		select <include refid="all-column" /> from <include refid="table-name"/> 
+		where 1=1   <include refid="all-query-condition"/>
+        limit 1
+	</select>
+	
+	<!-- Query By Cond -->
+	<select id="queryByCond" resultMap="BaseResultMap" parameterType="com.api.symptoms.domain.SymptomsEntity">
+		select <include refid="all-column-without" /> from <include refid="table-name"/>
+		where 1=1 <include refid="all-query-condition"/> 
+	</select>
+
+	
+</mapper>

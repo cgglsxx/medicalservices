@@ -33,7 +33,7 @@
 	      and CATE_ID = #{cateId}
     </if>
 	   <if test="title != null and title != ''">
-		   <![CDATA[   and INSTR(TITLE, #{title}) = 1       	 ]]>
+		   <![CDATA[   and INSTR(TITLE, #{title}) = 0       	 ]]>
     </if>
 	   <if test="keywords != null and keywords != ''">
 		   <![CDATA[	and INSTR(KEYWORDS, #{keywords})  > 0        ]]>
@@ -74,6 +74,7 @@
 	   <if test="fileUrl != null and fileUrl != ''">
 	      and FILE_URL = #{fileUrl}
     </if>
+		order by SORT_ORDER asc
 	</sql>
 	
 
