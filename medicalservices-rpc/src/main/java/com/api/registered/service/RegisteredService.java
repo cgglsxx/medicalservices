@@ -62,6 +62,14 @@ public interface RegisteredService {
      * @return
      */
     ResultBody saveLockReg(RegOrderSaveDto dto) throws GlobalErrorInfoException;
+
+    /**
+     * 取消预约
+     * @param dto
+     * @return
+     * @throws GlobalErrorInfoException
+     */
+    ResultBody CancelRegister(CancelRegDto dto) throws GlobalErrorInfoException;
     /**
      * 挂号订单结算
      * @param dto
@@ -75,13 +83,13 @@ public interface RegisteredService {
      */
     ResultBody queryRegisterInformation(RegInfoDto dto) throws GlobalErrorInfoException;
     /**
-     * 门诊已预约、挂号信息查询
+     * 门诊预约、挂号结算取消
      * @param dto
      * @return
      */
     ResultBody cancelRegAccount(RegRefundDto dto) throws GlobalErrorInfoException;
     /**
-     * 门诊已预约、挂号信息查询
+     * 门诊候诊信息查询
      * @param dto
      * @return
      */

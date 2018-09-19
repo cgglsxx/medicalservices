@@ -175,13 +175,84 @@ public class RegisteredServiceImpl implements RegisteredService {
         result.put("time",DateUtil.formatDateToString(new Date(),DateUtil.FORMAT_FULL));//订单时间
         return new ResultBody(result);
     }
+
+    @Override
+    public ResultBody CancelRegister(CancelRegDto dto) throws GlobalErrorInfoException {
+        String key = setting.getRedisLockRegAccount()+dto.getOrderId();
+        try {
+            //此处存在线程安全问题 该笔订单同一时间只能执行一次操作
+            RedissLockUtil.lock(key, TimeUnit.MINUTES, 5);
+            //step1判断该患者是否绑卡
+            QueryCardForPersonDto queryCardForPersonDto = new QueryCardForPersonDto();
+            queryCardForPersonDto.setOrgCode(dto.getOrgCode());
+            queryCardForPersonDto.setIdcard_no(dto.getIdcard_no());
+            queryCardForPersonDto.setChannel(dto.getChannel());
+            queryCardForPersonDto.setOut_platform_id(dto.getOut_platform_id());
+            ResultBody cardBody = cardForPatService.queryCardInfoForPerson(queryCardForPersonDto);
+            if(!cardBody.getCode().equals(GlobalErrorInfoEnum.SUCCESS.getCode())){
+                return cardBody;
+            }
+            //step2 判断订单状态是否支付
+            OrderEntity orderEntity = new OrderEntity();
+            orderEntity.setOrderId(dto.getOrderId());
+            OrderEntity order = orderMapper.queryLimitOne(orderEntity);
+            if(order != null &&  "02".equals(order.getPayResult())){
+                //表示该订单已经支付成功
+                return new ResultBody(RegisteredErrorInfoEnum.REG_ORDER_ALREADY_PAY);
+            }
+            //step3查询预约详情
+            RegistrationDetailEntity registrationDetailEntity = new RegistrationDetailEntity();
+            registrationDetailEntity.setOrderId(dto.getOrderId());
+            registrationDetailEntity = registrationDetailMapper.queryLimitOne(registrationDetailEntity);
+            if(!(registrationDetailEntity.getStatus() != null
+                    && "1".equals(registrationDetailEntity.getStatus()))){
+                //表示预约记录不满足取消预约
+                return new ResultBody(RegisteredErrorInfoEnum.REG_STATUS_ERROR);
+            }
+            //step4 取消锁号
+            CancelRegisterDto cancelRegisterDto = new CancelRegisterDto();
+            cancelRegisterDto.setCardNo(registrationDetailEntity.getCardno());
+            cancelRegisterDto.setCardType(registrationDetailEntity.getCardtype());
+            cancelRegisterDto.setPatId(registrationDetailEntity.getPatid());
+            cancelRegisterDto.setYydjh(registrationDetailEntity.getYydjh());
+            ResultBody lockBody = serviceInvoke(ReflectMapUtil.beanToMap(cancelRegisterDto));
+            if(!IConst.HIS_SUCCESS.equals(lockBody.getCode())){
+                //表示取消锁号失败
+                logger.error("订单（"+registrationDetailEntity.getOrderId()+"）进行取消锁号失败:"+lockBody.getMessage());
+                return new ResultBody(RegisteredErrorInfoEnum.REG_CANCELREG_ERROR);
+            }else{
+                RegistrationDetailEntity entity = new RegistrationDetailEntity();
+                entity.setStatus("2");
+                entity.setOrderId(registrationDetailEntity.getOrderId());
+                registrationDetailMapper.updateRegistrationDetailByOrderId(entity);
+                return new ResultBody();
+            }
+        }catch (Exception e){
+            logger.error(e.toString());
+            throw new GlobalErrorInfoException(GlobalErrorInfoEnum.SYS_ERROR);
+        }finally {
+            RedissLockUtil.unlock(key);
+        }
+
+    }
+
     @Override
     @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public ResultBody regAccount(RegAccountDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockRegAccount()+dto.getOrderId();
         try {
-            //此处存在线程安全问题 该笔订单同一时间只能执行一次his结算操作
+            //此处存在线程安全问题 该笔订单同一时间只能执行一次操作
             RedissLockUtil.lock(key, TimeUnit.MINUTES,5);
+            //判断该患者是否绑卡
+            QueryCardForPersonDto queryCardForPersonDto = new QueryCardForPersonDto();
+            queryCardForPersonDto.setOrgCode(dto.getOrgCode());
+            queryCardForPersonDto.setIdcard_no(dto.getIdcard_no());
+            queryCardForPersonDto.setChannel(dto.getChannel());
+            queryCardForPersonDto.setOut_platform_id(dto.getOut_platform_id());
+            ResultBody cardBody = cardForPatService.queryCardInfoForPerson(queryCardForPersonDto);
+            if(!cardBody.getCode().equals(GlobalErrorInfoEnum.SUCCESS.getCode())){
+                return cardBody;
+            }
             //step 1 查询订单信息 判断是否重复请求
             OrderEntity orderParam = new OrderEntity();
             orderParam.setOrderId(dto.getOrderId());
@@ -316,13 +387,14 @@ public class RegisteredServiceImpl implements RegisteredService {
         //step 2 根据条件查询挂号预算记录
         OrderSettlementEntity orderSettlementEntity = new OrderSettlementEntity();
         orderSettlementEntity.setStatus("1");//表示预算
-        if("0".equals(dto.getIsReg())){
-            //表示预约
-            orderSettlementEntity.setPreregflag("1");
-        }else if("1".equals(dto.getIsReg())){
-            //表示挂号
-            orderSettlementEntity.setPreregflag("2");
-        }
+        //his文档字段意义变化
+//        if("0".equals(dto.getIsReg())){
+//            //表示预约
+//            orderSettlementEntity.setPreregflag("1");
+//        }else if("1".equals(dto.getIsReg())){
+//            //表示挂号
+//            orderSettlementEntity.setPreregflag("2");
+//        }
         orderSettlementEntity.setPatid(card.getPatid());
         orderSettlementEntity.setCardno(card.getCardno());
         orderSettlementEntity.setCardtype(card.getType());
@@ -385,7 +457,7 @@ public class RegisteredServiceImpl implements RegisteredService {
     public ResultBody cancelRegAccount(RegRefundDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockRegAccount()+dto.getOrderId();
         try {
-            //此处存在线程安全问题 该笔订单同一时间只能执行一次his取消结算操作
+            //此处存在线程安全问题 该笔订单同一时间只能执行一次操作
             RedissLockUtil.lock(key, TimeUnit.MINUTES,5);
             //step1 判断该患者是否绑卡
             QueryCardForPersonDto queryCardForPersonDto = new QueryCardForPersonDto();

@@ -14,6 +14,7 @@ import com.api.result.GlobalErrorInfoException;
 import com.api.result.ResultBody;
 import com.api.result.messageenum.RegisteredErrorInfoEnum;
 import com.api.setting.HisSetting;
+import com.api.util.RedissLockUtil;
 import com.api.util.ReflectMapUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 处理异步通知his挂号缴费成功消息
@@ -48,45 +50,55 @@ public class MsgReceiver {
     @RabbitListener(queues = {RabbitConfig.PROCESS_CANCELLOCKREG_QUEUE})
     @RabbitHandler
     @Transactional(propagation= Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
-    public void processForCancelReg(Msg msg) throws  GlobalErrorInfoException {
+    public void processForCancelReg(Msg msg){
         //step1获取登记信息 判断订单是否支付
         RegistrationDetailEntity registrationDetailEntity = (RegistrationDetailEntity) msg.getObj();
         logger.info("订单（"+registrationDetailEntity.getOrderId()+"）接收到取消锁号消息通知:当前进行第"+msg.getCount()+"次取消锁号");
-        boolean flag = true;//表示取消锁号成功
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setOrderId(registrationDetailEntity.getOrderId());
-        OrderEntity order = orderMapper.queryLimitOne(orderEntity);
-        if(order != null &&  "02".equals(order.getPayResult())){
-            //表示该订单已经支付成功 无需取消
-            return;
+        String key = setting.getRedisLockRegAccount()+registrationDetailEntity.getOrderId();
+        try {
+            //此处存在线程安全问题 该笔订单同一时间只能执行一次操作
+            RedissLockUtil.lock(key, TimeUnit.MINUTES, 5);
+            boolean flag = true;//表示取消锁号成功
+            OrderEntity orderEntity = new OrderEntity();
+            orderEntity.setOrderId(registrationDetailEntity.getOrderId());
+            OrderEntity order = orderMapper.queryLimitOne(orderEntity);
+            if(!(order == null || (order != null && "01".equals(order.getPayResult())))){
+                //表示该订单不满足自动取消预约 无需取消
+                return;
+            }
+            //step 2 取消锁号
+            CancelRegisterDto cancelRegisterDto = new CancelRegisterDto();
+            cancelRegisterDto.setCardNo(registrationDetailEntity.getCardno());
+            cancelRegisterDto.setCardType(registrationDetailEntity.getCardtype());
+            cancelRegisterDto.setPatId(registrationDetailEntity.getPatid());
+            cancelRegisterDto.setYydjh(registrationDetailEntity.getYydjh());
+            ResultBody lockBody = serviceInvoke(ReflectMapUtil.beanToMap(cancelRegisterDto));
+            if(!IConst.HIS_SUCCESS.equals(lockBody.getCode())){
+                //表示取消锁号失败
+                flag = false;
+                logger.error("订单（"+registrationDetailEntity.getOrderId()+"）进行第"+msg.getCount()+"次取消锁号失败");
+            }else{
+                RegistrationDetailEntity entity = new RegistrationDetailEntity();
+                entity.setStatus("2");
+                entity.setOrderId(registrationDetailEntity.getOrderId());
+                registrationDetailMapper.updateRegistrationDetailByOrderId(entity);
+            }
+            //step3 根据情况配置是否进行补偿业务
+            if(!flag && msg.getCount() <= 3){
+                logger.info("订单（"+registrationDetailEntity.getOrderId()+"）发送异步通知his系统取消锁号信息 ，当前第"+msg.getCount()+"次发送取消锁号信息");
+                //发送取消锁号延迟mq信息
+                String time = msg.getCount()*10000+"";
+                msg.setTime(time);
+                msg.setCount(msg.getCount()+1);
+                msg.setObj(registrationDetailEntity);
+                msgSender.sendToMqForDelayCancelReg(msg);
+            }
+        }catch (Exception e){
+
+        }finally {
+
         }
-        //step 2 取消锁号
-        CancelRegisterDto cancelRegisterDto = new CancelRegisterDto();
-        cancelRegisterDto.setCardNo(registrationDetailEntity.getCardno());
-        cancelRegisterDto.setCardType(registrationDetailEntity.getCardtype());
-        cancelRegisterDto.setPatId(registrationDetailEntity.getPatid());
-        cancelRegisterDto.setYydjh(registrationDetailEntity.getYydjh());
-        ResultBody lockBody = serviceInvoke(ReflectMapUtil.beanToMap(cancelRegisterDto));
-        if(!IConst.HIS_SUCCESS.equals(lockBody.getCode())){
-            //表示取消锁号失败
-            flag = false;
-            logger.error("订单（"+registrationDetailEntity.getOrderId()+"）进行第"+msg.getCount()+"次取消锁号失败");
-        }else{
-            RegistrationDetailEntity entity = new RegistrationDetailEntity();
-            entity.setStatus("2");
-            entity.setOrderId(registrationDetailEntity.getOrderId());
-            registrationDetailMapper.updateRegistrationDetailByOrderId(entity);
-        }
-        //step3 根据情况配置是否进行补偿业务
-        if(!flag && msg.getCount() <= 3){
-            logger.info("订单（"+registrationDetailEntity.getOrderId()+"）发送异步通知his系统取消锁号信息 ，当前第"+msg.getCount()+"次发送取消锁号信息");
-            //发送取消锁号延迟mq信息
-            String time = msg.getCount()*10000+"";
-            msg.setTime(time);
-            msg.setCount(msg.getCount()+1);
-            msg.setObj(registrationDetailEntity);
-            msgSender.sendToMqForDelayCancelReg(msg);
-        }
+
     }
     @RabbitListener(queues = {RabbitConfig.PROCESS_REGPAY_QUEUE})
     @RabbitHandler

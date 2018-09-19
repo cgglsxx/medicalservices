@@ -19,6 +19,10 @@ public class RegAccountDto extends ParentDto {
     @ApiModelProperty(name="channel",value="渠道",example="10",required =true)
     @NotEmpty(message = "渠道不能为空")
     private String channel;
+    //身份证号
+    @ApiModelProperty(name="idcard_no",value="身份证号",example="513029199008170677",required =true)
+    @NotEmpty(message = "身份证不能为空")
+    private String idcard_no;
     //订单编号
     @ApiModelProperty(name="orderId",value="订单编号",example="36a43657f70f4538b2e913796768a984",required =true)
     @NotEmpty(message = "订单编号不能为空")
@@ -118,5 +122,13 @@ public class RegAccountDto extends ParentDto {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public String getIdcard_no() {
+        return idcard_no;
+    }
+
+    public void setIdcard_no(String idcard_no) {
+        this.idcard_no = idcard_no;
     }
 }
