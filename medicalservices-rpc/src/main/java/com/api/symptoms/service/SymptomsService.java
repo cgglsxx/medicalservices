@@ -21,14 +21,14 @@ public interface SymptomsService {
     ResultBody queryBodys(BodysQueryDto dto) throws GlobalErrorInfoException;
 
     /**
-     * 医疗咨询列表查询
+     * 智能导诊列表查询
      * @param dto
      * @return
      */
     ResultBody querySymptomsList(SymptomsListQueryDto dto) throws GlobalErrorInfoException;
 
     /**
-     * 医疗咨询详情内容查询
+     * 智能导诊详情内容查询
      * @param dto
      * @return
      */

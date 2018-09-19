@@ -3,10 +3,6 @@ package com.api.symptoms.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.article.service.ArticleService;
-import com.api.dto.article.ArticleDetailQueryDto;
-import com.api.dto.article.ArticleListQueryDto;
-import com.api.dto.article.CatesQueryDto;
 import com.api.dto.symptoms.BodysQueryDto;
 import com.api.dto.symptoms.SymptomsDetailQueryDto;
 import com.api.dto.symptoms.SymptomsListQueryDto;
