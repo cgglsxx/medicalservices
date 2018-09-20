@@ -32,7 +32,7 @@
 	      and CATE_ID = #{cateId}
     </if>
 	   <if test="title != null and title != ''">
-		   <![CDATA[   and INSTR(TITLE, #{title}) = 0       	 ]]>
+		   <![CDATA[   and INSTR(TITLE, #{title}) > 0       	 ]]>
     </if>
 	   <if test="introduction != null and introduction != ''">
 	      and INTRODUCTION = #{introduction}
