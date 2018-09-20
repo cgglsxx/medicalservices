@@ -172,6 +172,7 @@ public class RegisteredServiceImpl implements RegisteredService {
         result.put("personAmt",orderSettlementEntity.getPersonamt());//个人自付金额
         result.put("discountsAmt",orderSettlementEntity.getDiscountsamt());//医院优惠金额
         result.put("tradebalance",orderSettlementEntity.getRegamt());//订单总金额
+        result.put("idcard_no",orderSettlementEntity.getIdcard());//身份证
         result.put("time",DateUtil.formatDateToString(new Date(),DateUtil.FORMAT_FULL));//订单时间
         return new ResultBody(result);
     }
