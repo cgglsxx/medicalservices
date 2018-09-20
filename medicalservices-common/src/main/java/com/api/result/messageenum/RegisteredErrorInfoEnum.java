@@ -21,7 +21,7 @@ public enum RegisteredErrorInfoEnum implements ErrorInfoInterface {
     REG_ORDER_CANCELERROR("11","HIS取消结算失败"),
     REG_NODATA_ERROR("12","未查询到挂号相关记录"),
     REG_DATA_ERROR("13","挂号数据缺失"),
-    REG_ORDER_ALREADY_PAY("14","挂号订单已支付,无法取消预约"),
+    REG_ORDER_ALREADY_PAY("14","挂号订单支付状态不支持取消预约"),
     REG_CANCELREG_ERROR("15","取消预约失败"),
     REG_STATUS_ERROR("16","挂号预约记录状态不满足");
 

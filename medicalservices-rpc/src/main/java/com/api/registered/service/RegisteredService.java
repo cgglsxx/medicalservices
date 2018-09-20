@@ -69,7 +69,7 @@ public interface RegisteredService {
      * @return
      * @throws GlobalErrorInfoException
      */
-    ResultBody CancelRegister(CancelRegDto dto) throws GlobalErrorInfoException;
+    ResultBody cancelRegister(CancelRegDto dto) throws GlobalErrorInfoException;
     /**
      * 挂号订单结算
      * @param dto

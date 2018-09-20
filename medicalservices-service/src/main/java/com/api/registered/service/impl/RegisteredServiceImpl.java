@@ -177,7 +177,7 @@ public class RegisteredServiceImpl implements RegisteredService {
     }
 
     @Override
-    public ResultBody CancelRegister(CancelRegDto dto) throws GlobalErrorInfoException {
+    public ResultBody cancelRegister(CancelRegDto dto) throws GlobalErrorInfoException {
         String key = setting.getRedisLockRegAccount()+dto.getOrderId();
         try {
             //此处存在线程安全问题 该笔订单同一时间只能执行一次操作
@@ -196,7 +196,7 @@ public class RegisteredServiceImpl implements RegisteredService {
             OrderEntity orderEntity = new OrderEntity();
             orderEntity.setOrderId(dto.getOrderId());
             OrderEntity order = orderMapper.queryLimitOne(orderEntity);
-            if(order != null &&  "02".equals(order.getPayResult())){
+            if(!(order != null &&  "01".equals(order.getPayResult()))){
                 //表示该订单已经支付成功
                 return new ResultBody(RegisteredErrorInfoEnum.REG_ORDER_ALREADY_PAY);
             }

@@ -122,6 +122,18 @@ public class RegisteredController {
         //调用服务
         return registeredService.saveLockReg(dto);
     }
+    @ApiOperation(value = "取消预约挂号", notes = "", response = ResultBody.class)
+    @RequestMapping(value = "/api/registered/cancelReg", method = RequestMethod.POST)
+    public ResultBody cancelReg(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid CancelRegDto dto,
+                                         BindingResult bindingResult) throws GlobalErrorInfoException {
+        //验证参数
+        if(bindingResult.hasErrors()){
+            throw new GlobalErrorInfoException(RegisteredErrorInfoEnum.PARAMS_NO_COMPLETE);
+        }
+
+        //调用服务
+        return registeredService.cancelRegister(dto);
+    }
     @ApiOperation(value = "挂号缴费结算", notes = "", response = ResultBody.class)
     @RequestMapping(value = "/api/registered/regAccount", method = RequestMethod.POST)
     public ResultBody regAccount(@RequestBody @ApiParam(value = "dto",required = true)@ModelAttribute @Valid RegAccountDto dto,
