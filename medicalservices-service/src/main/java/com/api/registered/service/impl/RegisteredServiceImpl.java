@@ -135,7 +135,7 @@ public class RegisteredServiceImpl implements RegisteredService {
             //step 2.3 启用10分钟后不支付自动取消锁号
             Msg msg = new Msg();
             msg.setCount(1);
-            msg.setTime("60000");//测试10秒钟后调用取消锁号
+            msg.setTime("1800000");//测试30分钟后调用取消锁号
             msg.setObj(registrationDetailEntity);
             msgSender.sendToMqForDelayCancelReg(msg);
         }
