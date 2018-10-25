@@ -134,6 +134,16 @@
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
     <logger name="com.alibaba.dubbo" level="DEBUG"/>
 
+
+    <!-- 执行SQL日志 -->
+    <logger name="java.sql" level="DEBUG" >
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- spring 日志 -->
+    <logger name="org.springframework"  level="WARN">
+        <appender-ref ref="STDOUT" />
+    </logger>
     <!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 -->
     <root level="INFO">
         <appender-ref ref="FILEERROR" />
